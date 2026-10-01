@@ -858,15 +858,16 @@
                 <h3 class="font-bold text-slate-900 text-base sm:text-lg">全自動雲端即時同步說明</h3>
                 <button type="button" onclick="closeSyncInfoModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <p class="text-slate-600 leading-relaxed font-normal">本系統已啟用雲端資料庫雙向即時同步。任何同仁提出預約，在其他瀏覽器或無痕視窗皆會<b class="font-semibold text-slate-800">自動獲得最新借用與領取狀態</b>。</p>
+            <p class="text-slate-600 leading-relaxed font-normal">本系統支援 Google Firebase 雲端資料庫雙向即時同步。填入專案金鑰後，任何同仁提出預約，在其他電腦或手機皆會<b class="font-semibold text-slate-800">自動獲得最新借用與領取狀態</b>。</p>
             
-            <div class="p-3.5 bg-emerald-50 text-emerald-800 rounded-xl font-semibold flex items-center gap-2">
-                <i class="fa-solid fa-wifi text-emerald-600"></i> 跨瀏覽器、跨視窗即時連線運作中
+            <div id="syncStatusBox" class="p-3.5 bg-amber-50 text-amber-800 rounded-xl font-semibold flex items-center gap-2">
+                <i class="fa-solid fa-circle-exclamation text-amber-600"></i>
+                <span id="syncModalStatusText">目前為單機暫存模式（資料僅保留於此瀏覽器）</span>
             </div>
 
             <!-- Sync URL Input & Copy Section -->
             <div>
-                <label class="block font-semibold text-slate-700 mb-1.5">專屬同步網址：</label>
+                <label class="block font-semibold text-slate-700 mb-1.5">系統網址：</label>
                 <div class="flex items-center gap-2">
                     <input type="text" id="syncUrlDisplay" readonly class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-[13px] font-mono text-slate-600 select-all focus:outline-none">
                     <button type="button" onclick="copySyncLink()" class="px-4 py-2.5 bg-sky-700 hover:bg-sky-800 text-white font-semibold rounded-xl whitespace-nowrap shadow-xs transition-all flex items-center gap-1.5 text-sm">
@@ -886,6 +887,23 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, doc, setDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // =========================================================================
+        // 【雲端多同仁即時同步設定】
+        // 若您已依照手冊在 Firebase 建立好免費專案，請將專案設定貼在下方大括號中：
+        // 若保持 null 或空值，系統將自動以「本機離線暫存模式 (localStorage)」穩定運作。
+        // =========================================================================
+        window.userFirebaseConfig = null;
+        /*
+        window.userFirebaseConfig = {
+            apiKey: "請貼上您的_apiKey",
+            authDomain: "您的專案ID.firebaseapp.com",
+            projectId: "您的專案ID",
+            storageBucket: "您的專案ID.firebasestorage.app",
+            messagingSenderId: "您的_messagingSenderId",
+            appId: "您的_appId"
+        };
+        */
 
         window.db = null;
         window.auth = null;
@@ -1279,7 +1297,7 @@
                     return `<span class="bg-emerald-50 text-emerald-800 border border-emerald-200 text-[13px] font-semibold px-3 py-1 rounded-lg inline-flex items-center gap-1.5"><i class="fa-solid fa-box-archive text-emerald-600"></i> 已歸還結案</span>`;
                 case 'cancelled':
                 case 'rejected':
-                    return `<span class="bg-slate-100 text-slate-600 border border-slate-200 text-[13px] font-semibold px-3 py-1 rounded-lg inline-flex items-center gap-1.5"><i class="fa-solid fa-ban text-slate-400"></i> 已取消預約</span>`;
+                    return `<span class="bg-slate-100 text-slate-600 border border-slate-200 text-[13px] font-semibold px-3 py-1 rounded-lg inline-flex items-center gap-1.5">${escapeHtml(status)}</span>`;
                 default:
                     return `<span class="bg-slate-100 text-slate-700 border border-slate-200 text-[13px] font-semibold px-3 py-1 rounded-lg inline-flex items-center gap-1.5">${escapeHtml(status)}</span>`;
             }
@@ -1627,13 +1645,26 @@
         function updateSyncUI(isOnline, labelText) {
             const dot = document.getElementById('syncDot');
             const txt = document.getElementById('syncText');
+            const modalStatus = document.getElementById('syncModalStatusText');
+            const modalBox = document.getElementById('syncStatusBox');
+
             if (dot && txt) {
                 if (isOnline) {
                     dot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse";
                     txt.innerText = labelText || "雲端即時同步中";
                 } else {
                     dot.className = "w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse";
-                    txt.innerText = labelText || "本機暫存模式 (連線中)";
+                    txt.innerText = labelText || "本機暫存模式";
+                }
+            }
+
+            if (modalStatus && modalBox) {
+                if (isOnline) {
+                    modalBox.className = "p-3.5 bg-emerald-50 text-emerald-800 rounded-xl font-semibold flex items-center gap-2";
+                    modalStatus.innerHTML = '<i class="fa-solid fa-wifi text-emerald-600"></i> 已連線至雲端資料庫，跨同仁電腦與手機即時同步運作中！';
+                } else {
+                    modalBox.className = "p-3.5 bg-amber-50 text-amber-800 rounded-xl font-semibold flex items-center gap-2";
+                    modalStatus.innerHTML = '<i class="fa-solid fa-circle-exclamation text-amber-600"></i> 目前為單機暫存模式（資料僅保留於此瀏覽器，換電腦無法看到）';
                 }
             }
         }
@@ -1652,10 +1683,16 @@
                 window.refreshAllViews();
 
                 const appId = window.getAppId();
-                const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+                // 優先使用使用者於 window.userFirebaseConfig 填入的金鑰，若無則讀取系統預設配置
+                let firebaseConfig = window.userFirebaseConfig;
+                if (!firebaseConfig && typeof __firebase_config !== 'undefined' && __firebase_config) {
+                    try {
+                        firebaseConfig = JSON.parse(__firebase_config);
+                    } catch(e) {}
+                }
 
-                if (!firebaseConfig) {
-                    updateSyncUI(true, "單機記錄模式");
+                if (!firebaseConfig || !firebaseConfig.apiKey) {
+                    updateSyncUI(false, "單機暫存模式");
                     return;
                 }
 
@@ -1784,7 +1821,7 @@
 
             } catch (err) {
                 console.error("Sync init failed:", err);
-                updateSyncUI(true, "本機暫存模式");
+                updateSyncUI(false, "本機暫存模式");
                 window.refreshAllViews();
             }
         }
@@ -1986,7 +2023,7 @@
         window.updateActiveAdvFilterCount = function() {
             const catVal = document.getElementById('filterResCategory')?.value || 'ALL';
             const deviceVal = document.getElementById('filterResDevice')?.value || 'ALL';
-            const userQuery = (document.getElementById('filterResUserName')?.value || '').trim();
+            const userQuery = (document.getElementById('filterResUserName')?.value || '').trim().toLowerCase();
             const deptVal = document.getElementById('filterResDept')?.value || 'ALL';
             const dateQuery = document.getElementById('filterResDate')?.value || '';
 
