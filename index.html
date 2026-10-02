@@ -32,7 +32,13 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .animate-fade-in {
-            animation: fadeIn 0.3s ease-out forwards;
+            animation: fadeIn 0.25s ease-out forwards;
+        }
+
+        /* High contrast focus ring for accessibility */
+        input:focus, select:focus, button:focus-visible {
+            outline: 2px solid #0284c7;
+            outline-offset: 1px;
         }
 
         /* Formal Document Styling for Word Print & Preview */
@@ -92,7 +98,7 @@
                 </div>
                 <div>
                     <div class="flex items-center gap-2">
-                        <span class="text-[13px] sm:text-sm font-medium text-sky-800 tracking-wide">勞動部勞動力發展署中彰投分署</span>
+                        <span class="text-sm font-semibold text-sky-800 tracking-wide">勞動部勞動力發展署中彰投分署</span>
                         <span class="bg-sky-50 text-sky-800 text-[13px] font-semibold px-2.5 py-0.5 rounded-full border border-sky-200">綜合規劃科</span>
                     </div>
                     <h1 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mt-0.5">資訊設備借用平台</h1>
@@ -102,7 +108,7 @@
             <!-- Header Actions -->
             <div class="flex items-center gap-3">
                 <!-- Sync status badge -->
-                <button type="button" onclick="openSyncInfoModal()" class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-2 rounded-full text-[13px] sm:text-sm font-medium transition-all" title="查看雲端即時同步狀態">
+                <button type="button" onclick="openSyncInfoModal()" class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-2 rounded-full text-sm font-medium transition-all" title="查看雲端即時同步狀態">
                     <span id="syncDot" class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
                     <span id="syncText">雲端初始化中...</span>
                 </button>
@@ -137,7 +143,7 @@
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <div id="statCard_available" onclick="filterByStat('available')" class="stat-card bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-between cursor-pointer hover:border-emerald-300 hover:shadow-sm transition-all group" title="點擊篩選可借用設備">
                 <div>
-                    <div class="text-[13px] sm:text-sm font-medium text-slate-500 group-hover:text-emerald-700">可借用設備</div>
+                    <div class="text-sm font-medium text-slate-600 group-hover:text-emerald-700">可借用設備</div>
                     <div id="statAvailable" class="text-3xl font-bold text-emerald-600 mt-1 font-mono tabular-nums">0</div>
                 </div>
                 <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -147,7 +153,7 @@
 
             <div id="statCard_approved" onclick="filterByStat('approved')" class="stat-card bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-between cursor-pointer hover:border-indigo-300 hover:shadow-sm transition-all group" title="點擊篩選待領取(已預約)設備">
                 <div>
-                    <div class="text-[13px] sm:text-sm font-medium text-slate-500 group-hover:text-indigo-700">待領取 (已預約)</div>
+                    <div class="text-sm font-medium text-slate-600 group-hover:text-indigo-700">待領取 (已預約)</div>
                     <div id="statApproved" class="text-3xl font-bold text-indigo-600 mt-1 font-mono tabular-nums">0</div>
                 </div>
                 <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:scale-110 transition-transform relative">
@@ -158,7 +164,7 @@
 
             <div id="statCard_borrowed" onclick="filterByStat('borrowed')" class="stat-card bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-between cursor-pointer hover:border-sky-300 hover:shadow-sm transition-all group" title="點擊篩選出借中設備">
                 <div>
-                    <div class="text-[13px] sm:text-sm font-medium text-slate-500 group-hover:text-sky-700">出借使用中</div>
+                    <div class="text-sm font-medium text-slate-600 group-hover:text-sky-700">出借使用中</div>
                     <div id="statBorrowed" class="text-3xl font-bold text-sky-600 mt-1 font-mono tabular-nums">0</div>
                 </div>
                 <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -168,7 +174,7 @@
 
             <div id="statCard_maintenance" onclick="filterByStat('maintenance')" class="stat-card bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-between cursor-pointer hover:border-slate-300 hover:shadow-sm transition-all group" title="點擊篩選維護中設備">
                 <div>
-                    <div class="text-[13px] sm:text-sm font-medium text-slate-500 group-hover:text-slate-700">維護中設備</div>
+                    <div class="text-sm font-medium text-slate-600 group-hover:text-slate-700">維護中設備</div>
                     <div id="statMaintenance" class="text-3xl font-bold text-slate-600 mt-1 font-mono tabular-nums">0</div>
                 </div>
                 <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -197,7 +203,7 @@
             </div>
 
             <div class="flex items-center gap-3">
-                <div id="totalEquipmentBadge" class="text-sm font-medium text-slate-500 hidden sm:block">
+                <div id="totalEquipmentBadge" class="text-sm font-semibold text-slate-600 hidden sm:block">
                     現有公務設備共 13 台
                 </div>
             </div>
@@ -209,22 +215,22 @@
             <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col md:flex-row items-center justify-between gap-4">
                 <div class="flex flex-wrap items-center gap-4 w-full">
                     <div class="w-full sm:w-56">
-                        <label class="block text-[13px] font-semibold text-slate-600 mb-1.5">設備類別</label>
-                        <select id="categoryFilter" onchange="handleCategoryFilterChange()" class="w-full text-sm bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">設備類別</label>
+                        <select id="categoryFilter" onchange="handleCategoryFilterChange()" class="w-full text-sm bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
                             <option value="ALL">全部設備類別</option>
                         </select>
                     </div>
 
                     <div class="w-full sm:w-56">
-                        <label class="block text-[13px] font-semibold text-slate-600 mb-1.5">設備代號</label>
-                        <select id="deviceCodeFilter" onchange="filterLaptops()" class="w-full text-sm bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-medium font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">設備代號</label>
+                        <select id="deviceCodeFilter" onchange="filterLaptops()" class="w-full text-sm bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 font-medium font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
                             <option value="ALL">全部設備代號</option>
                         </select>
                     </div>
 
                     <div class="w-full sm:w-56">
-                        <label class="block text-[13px] font-semibold text-slate-600 mb-1.5">借用與預約狀態</label>
-                        <select id="statusFilter" onchange="filterLaptops()" class="w-full text-sm bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">借用與預約狀態</label>
+                        <select id="statusFilter" onchange="filterLaptops()" class="w-full text-sm bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
                             <option value="ALL">全部狀態</option>
                             <option value="available" selected>可借用</option>
                             <option value="approved">待領取(已預約)</option>
@@ -250,23 +256,23 @@
                     <div class="flex flex-wrap items-center gap-3">
                         <div class="flex flex-wrap gap-1 bg-slate-100 p-1 rounded-xl">
                             <button type="button" onclick="setResFilter('ALL')" id="resFilterALL" class="res-filter-btn px-4 py-2 text-sm font-semibold rounded-lg bg-sky-50 text-sky-800 shadow-xs transition-all">全部</button>
-                            <button type="button" onclick="setResFilter('approved')" id="resFilterapproved" class="res-filter-btn px-4 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:bg-slate-200/60 transition-all">待領取(已預約)</button>
-                            <button type="button" onclick="setResFilter('active')" id="resFilteractive" class="res-filter-btn px-4 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:bg-slate-200/60 transition-all">使用中</button>
-                            <button type="button" onclick="setResFilter('completed')" id="resFiltercompleted" class="res-filter-btn px-4 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:bg-slate-200/60 transition-all">已歸還結案</button>
+                            <button type="button" onclick="setResFilter('approved')" id="resFilterapproved" class="res-filter-btn px-4 py-2 text-sm font-semibold rounded-lg text-slate-700 hover:bg-slate-200/70 transition-all">待領取(已預約)</button>
+                            <button type="button" onclick="setResFilter('active')" id="resFilteractive" class="res-filter-btn px-4 py-2 text-sm font-semibold rounded-lg text-slate-700 hover:bg-slate-200/70 transition-all">使用中</button>
+                            <button type="button" onclick="setResFilter('completed')" id="resFiltercompleted" class="res-filter-btn px-4 py-2 text-sm font-semibold rounded-lg text-slate-700 hover:bg-slate-200/70 transition-all">已歸還結案</button>
                         </div>
 
                         <!-- 進階篩選抽屜切換按鈕 -->
-                        <button type="button" onclick="toggleAdvancedFilterPanel()" id="btnToggleAdvFilter" class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-xl border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 transition-all shadow-xs">
+                        <button type="button" onclick="toggleAdvancedFilterPanel()" id="btnToggleAdvFilter" class="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-xl border border-slate-300 bg-slate-50 text-slate-700 hover:bg-slate-100 transition-all shadow-xs">
                             <i class="fa-solid fa-filter text-sky-700 text-xs"></i>
                             <span>進階條件篩選</span>
                             <span id="advFilterActiveBadge" class="hidden bg-sky-700 text-white text-[12px] font-bold px-2 py-0.5 rounded-full">0</span>
-                            <i id="advFilterChevron" class="fa-solid fa-chevron-down text-xs transition-transform duration-200 text-slate-400"></i>
+                            <i id="advFilterChevron" class="fa-solid fa-chevron-down text-xs transition-transform duration-200 text-slate-500"></i>
                         </button>
                     </div>
 
                     <!-- 右側：資料筆數與管理員功能 -->
                     <div class="flex items-center gap-4 self-end lg:self-auto">
-                        <div class="text-sm font-medium text-slate-500">
+                        <div class="text-sm font-semibold text-slate-700">
                             篩選後共 <span id="resCountText" class="font-bold text-sky-800 text-base font-mono tabular-nums">0</span> 筆預約紀錄
                         </div>
 
@@ -283,36 +289,36 @@
                 </div>
 
                 <!-- 可折疊收合的進階條件面板 -->
-                <div id="advancedFilterPanel" class="hidden pt-4 border-t border-slate-100 space-y-3 animate-fade-in">
-                    <div class="text-[13px] font-semibold text-slate-500 flex items-center justify-between">
-                        <span class="flex items-center gap-1.5 text-slate-700 font-semibold">
+                <div id="advancedFilterPanel" class="hidden pt-4 border-t border-slate-200 space-y-3 animate-fade-in">
+                    <div class="text-sm font-semibold text-slate-700 flex items-center justify-between">
+                        <span class="flex items-center gap-1.5 text-slate-800 font-semibold">
                             <i class="fa-solid fa-sliders text-sky-700"></i> 多條件細項自訂過濾
                         </span>
-                        <button type="button" onclick="resetReservationFilters()" class="text-sky-700 hover:text-sky-800 font-semibold text-[13px] flex items-center gap-1 transition-colors">
+                        <button type="button" onclick="resetReservationFilters()" class="text-sky-700 hover:text-sky-900 font-semibold text-sm flex items-center gap-1 transition-colors">
                             <i class="fa-solid fa-rotate-left"></i> 清除篩選條件
                         </button>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
                         <div>
-                            <label class="block text-[13px] font-semibold text-slate-600 mb-1.5">設備類別</label>
-                            <select id="filterResCategory" onchange="handleResCategoryChange()" class="w-full text-sm bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">設備類別</label>
+                            <select id="filterResCategory" onchange="handleResCategoryChange()" class="w-full text-sm bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
                                 <option value="ALL">全部類別</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-[13px] font-semibold text-slate-600 mb-1.5">預約設備</label>
-                            <select id="filterResDevice" onchange="handleResFilterChange()" class="w-full text-sm bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 font-medium font-mono text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">預約設備</label>
+                            <select id="filterResDevice" onchange="handleResFilterChange()" class="w-full text-sm bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 font-medium font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
                                 <option value="ALL">全部設備</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-[13px] font-semibold text-slate-600 mb-1.5">申請人姓名</label>
-                            <input type="text" id="filterResUserName" oninput="handleResFilterChange()" placeholder="搜尋同仁姓名..." class="w-full text-sm bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">申請人姓名</label>
+                            <input type="text" id="filterResUserName" oninput="handleResFilterChange()" placeholder="搜尋同仁姓名..." class="w-full text-sm bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
                         </div>
                         <div>
-                            <label class="block text-[13px] font-semibold text-slate-600 mb-1.5">所屬單位</label>
-                            <select id="filterResDept" onchange="handleResFilterChange()" class="w-full text-sm bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">所屬單位</label>
+                            <select id="filterResDept" onchange="handleResFilterChange()" class="w-full text-sm bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
                                 <option value="ALL">全部科室單位</option>
                                 <optgroup label="業務科室">
                                     <option value="綜合規劃科">綜合規劃科</option>
@@ -340,8 +346,8 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-[13px] font-semibold text-slate-600 mb-1.5">預約起訖日期</label>
-                            <input type="date" id="filterResDate" onchange="handleResFilterChange()" class="w-full text-sm bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 font-medium font-mono text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">預約起訖日期</label>
+                            <input type="date" id="filterResDate" onchange="handleResFilterChange()" class="w-full text-sm bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 font-medium font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
                         </div>
                     </div>
                 </div>
@@ -351,7 +357,7 @@
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
                         <thead>
-                            <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold text-sm">
+                            <tr class="bg-slate-50 border-b border-slate-200 text-slate-700 font-semibold text-sm">
                                 <th class="p-4 sm:p-5">預約設備</th>
                                 <th class="p-4 sm:p-5">申請人 / 單位</th>
                                 <th class="p-4 sm:p-5">預約起訖日期</th>
@@ -367,17 +373,17 @@
 
                 <!-- 預約紀錄專屬分頁控制列 -->
                 <div id="reservationPaginationBar" class="p-4 sm:p-5 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
-                    <div id="resPageSummary" class="font-medium text-slate-600">
+                    <div id="resPageSummary" class="font-semibold text-slate-700">
                         顯示第 0 筆，共 0 筆預約紀錄 (第 1 / 1 頁)
                     </div>
                     <div class="flex items-center gap-1.5">
-                        <button type="button" id="resPrevPageBtn" onclick="changeResPage(-1)" class="px-3.5 py-1.5 border border-slate-300 rounded-lg font-medium bg-white text-slate-700 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                        <button type="button" id="resPrevPageBtn" onclick="changeResPage(-1)" class="px-3.5 py-1.5 border border-slate-300 rounded-lg font-semibold bg-white text-slate-700 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                             <i class="fa-solid fa-chevron-left"></i> 上一頁
                         </button>
                         <div id="resPageNumbers" class="flex items-center gap-1">
                             <!-- Dynamically rendered page buttons -->
                         </div>
-                        <button type="button" id="resNextPageBtn" onclick="changeResPage(1)" class="px-3.5 py-1.5 border border-slate-300 rounded-lg font-medium bg-white text-slate-700 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                        <button type="button" id="resNextPageBtn" onclick="changeResPage(1)" class="px-3.5 py-1.5 border border-slate-300 rounded-lg font-semibold bg-white text-slate-700 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                             下一頁 <i class="fa-solid fa-chevron-right"></i>
                         </button>
                     </div>
@@ -394,12 +400,12 @@
                         <h3 class="font-bold text-slate-900 text-base sm:text-lg flex items-center gap-2">
                             <i class="fa-solid fa-tags text-sky-700"></i> 自訂設備類別管理
                         </h3>
-                        <p class="text-[13px] sm:text-sm text-slate-500 mt-1">新增或管理設備分類名稱，提供同仁篩選與設備管理選單使用。</p>
+                        <p class="text-sm text-slate-600 mt-1">新增或管理設備分類名稱，提供同仁篩選與設備管理選單使用。</p>
                     </div>
                 </div>
 
                 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-4">
-                    <input type="text" id="newCategoryInput" placeholder="輸入新設備類別名稱 (例: 藍芽擴音麥克風)..." class="text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 flex-grow">
+                    <input type="text" id="newCategoryInput" placeholder="輸入新設備類別名稱 (例: 藍芽擴音麥克風)..." class="text-sm bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 flex-grow">
                     <button type="button" onclick="handleAddCategory()" class="px-5 py-2.5 bg-sky-700 hover:bg-sky-800 text-white rounded-xl text-sm font-semibold flex items-center justify-center gap-2 shadow-xs transition-all whitespace-nowrap">
                         <i class="fa-solid fa-plus"></i> 新增類別
                     </button>
@@ -417,7 +423,7 @@
                         <h3 class="font-bold text-slate-900 text-base sm:text-lg flex items-center gap-2">
                             <i class="fa-solid fa-laptop text-sky-700"></i> 公務資產設備管理
                         </h3>
-                        <p class="text-[13px] sm:text-sm text-slate-500 mt-1">可在此新增設備代號、調整設備類別或修改狀態。</p>
+                        <p class="text-sm text-slate-600 mt-1">可在此新增設備代號、調整設備類別或修改狀態。</p>
                     </div>
                     <div class="flex items-center gap-2.5">
                         <button type="button" onclick="openAddLaptopModal()" class="px-4 py-2.5 bg-sky-700 hover:bg-sky-800 text-white rounded-xl text-sm font-semibold flex items-center gap-2 shadow-md shadow-sky-700/20 transition-all">
@@ -426,6 +432,39 @@
                         <button type="button" onclick="resetSeedLaptops()" class="px-4 py-2.5 border border-slate-300 hover:bg-slate-100 text-slate-700 rounded-xl text-sm font-semibold transition-all">
                             <i class="fa-solid fa-rotate-right"></i> 重置預設設備
                         </button>
+                    </div>
+                </div>
+
+                <!-- Admin Asset Equipment Filter Toolbar -->
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/80 mb-4 flex flex-col md:flex-row items-center justify-between gap-3 text-sm">
+                    <div class="flex flex-wrap items-center gap-3 w-full">
+                        <div class="w-full sm:w-48">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">設備類別</label>
+                            <select id="adminCategoryFilter" onchange="handleAdminCategoryFilterChange()" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 font-medium text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20">
+                                <option value="ALL">全部設備類別</option>
+                            </select>
+                        </div>
+                        <div class="w-full sm:w-48">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">設備代號</label>
+                            <select id="adminDeviceCodeFilter" onchange="renderAdminLaptops()" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 font-medium font-mono text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20">
+                                <option value="ALL">全部設備代號</option>
+                            </select>
+                        </div>
+                        <div class="w-full sm:w-48">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">借用與預約狀態</label>
+                            <select id="adminStatusFilter" onchange="renderAdminLaptops()" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 font-medium text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20">
+                                <option value="ALL">全部狀態</option>
+                                <option value="available">可借用</option>
+                                <option value="approved">待領取(已預約)</option>
+                                <option value="borrowed">出借使用中</option>
+                                <option value="maintenance">維護中</option>
+                            </select>
+                        </div>
+                        <div class="self-end pt-2 sm:pt-0 sm:ml-auto">
+                            <button type="button" onclick="resetAdminEquipmentFilters()" class="px-3.5 py-2 text-slate-700 hover:text-sky-700 bg-white hover:bg-slate-100 border border-slate-300 rounded-lg text-sm font-semibold flex items-center gap-1.5 transition-colors shadow-xs">
+                                <i class="fa-solid fa-rotate-left text-xs"></i> 重設篩選
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -441,7 +480,7 @@
                         <h3 class="font-bold text-slate-900 text-base sm:text-lg flex items-center gap-2">
                             <i class="fa-solid fa-user-gear text-sky-700"></i> 管理者帳號與權限維護
                         </h3>
-                        <p class="text-[13px] sm:text-sm text-slate-500 mt-1">自訂管理者人員帳號與權限密碼（僅限已登入之管理者進行管理）。</p>
+                        <p class="text-sm text-slate-600 mt-1">自訂管理者人員帳號與權限密碼（僅限已登入之管理者進行管理）。</p>
                     </div>
                     <button type="button" onclick="openManageAdminsModal()" class="px-5 py-2.5 bg-sky-700 hover:bg-sky-800 text-white rounded-xl text-sm font-semibold flex items-center gap-2 shadow-md shadow-sky-700/20 transition-all whitespace-nowrap self-start sm:self-auto">
                         <i class="fa-solid fa-user-gear"></i> 管理者帳號設定
@@ -452,9 +491,47 @@
 
     </main>
 
-    <footer class="bg-white border-t border-slate-200 mt-12 py-6 text-center text-[13px] sm:text-sm text-slate-500 font-normal">
+    <footer class="bg-white border-t border-slate-200 mt-12 py-6 text-center text-sm text-slate-600 font-normal">
         <p>勞動部勞動力發展署中彰投分署 - 綜合規劃科 © 2026 公務資訊設備線上預約管理系統</p>
     </footer>
+
+    <!-- Device Schedule Detail Modal (設備借用與維護排程明細視窗) -->
+    <div id="deviceScheduleDetailModal" onclick="if(event.target === this) closeDeviceScheduleModal()" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-xs hidden p-4">
+        <div class="bg-white rounded-2xl border border-slate-200 max-w-lg w-full p-6 sm:p-7 shadow-xl animate-fade-in max-h-[90vh] flex flex-col justify-between">
+            <div class="flex items-center justify-between pb-3.5 border-b border-slate-100">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-700 border border-sky-100 flex items-center justify-center text-lg shadow-xs">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base sm:text-lg flex items-center gap-2">
+                            設備時段排程明細
+                            <span id="scheduleModalDeviceBadge" class="text-xs sm:text-[13px] font-semibold text-sky-800 bg-sky-50 border border-sky-200 px-2.5 py-0.5 rounded-full font-mono"></span>
+                        </h3>
+                        <p class="text-xs sm:text-[13px] text-slate-600 mt-0.5">列出本設備目前所有進行中與已預約時段明細</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeDeviceScheduleModal()" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-xl hover:bg-slate-100 transition-colors">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div id="deviceScheduleDetailContent" class="overflow-y-auto my-4 space-y-3.5 pr-1 max-h-[60vh]">
+                <!-- Populated dynamically via openDeviceScheduleModal() -->
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
+                <button type="button" onclick="closeDeviceScheduleModal()" class="px-4 py-2.5 border border-slate-300 hover:bg-slate-100 text-slate-700 font-semibold rounded-xl text-sm transition-colors">
+                    關閉
+                </button>
+                <button type="button" id="scheduleModalReserveBtn" onclick="handleReserveFromScheduleModal()" class="px-5 py-2.5 bg-sky-700 hover:bg-sky-800 text-white font-semibold rounded-xl text-sm shadow-md shadow-sky-700/20 flex items-center gap-2 transition-all active:scale-[0.98]">
+                    <i class="fa-solid fa-calendar-plus text-sm"></i>
+                    <span>立即登記預約</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Formal Document Sheet Modal (共用-4-0150 資訊設備借出登記表 - 支援 Word / 列印) -->
     <div id="wordExportModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs hidden p-4">
@@ -466,7 +543,7 @@
                     </span>
                     <div>
                         <h3 class="font-bold text-slate-900 text-base sm:text-lg">資訊設備借出登記表 預覽與匯出</h3>
-                        <p class="text-xs text-slate-500">公文標準格式：紀錄編號：共用-4-0150（僅列正式借出與結案紀錄），支援下載 Word (.doc) 檔或直接 A4 橫向列印</p>
+                        <p class="text-xs sm:text-[13px] text-slate-600">公文標準格式：紀錄編號：共用-4-0150（僅列正式借出與結案紀錄），支援下載 Word (.doc) 檔或直接 A4 橫向列印</p>
                     </div>
                 </div>
                 <button type="button" onclick="closeWordExportPreviewModal()" class="text-slate-400 hover:text-slate-600 p-1">
@@ -483,12 +560,12 @@
 
             <!-- Footer Action Buttons -->
             <div class="pt-3 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
-                <span class="text-xs text-slate-500 flex items-center gap-1.5">
+                <span class="text-xs sm:text-[13px] text-slate-600 flex items-center gap-1.5">
                     <i class="fa-solid fa-circle-info text-sky-600"></i>
                     匯出內容完整相容 Microsoft Word 97~2024 / Office 365 / WPS。
                 </span>
                 <div class="flex items-center gap-2 ml-auto">
-                    <button type="button" onclick="closeWordExportPreviewModal()" class="px-3.5 py-2 border border-slate-300 rounded-xl text-slate-600 font-semibold hover:bg-slate-100 text-sm">
+                    <button type="button" onclick="closeWordExportPreviewModal()" class="px-3.5 py-2 border border-slate-300 rounded-xl text-slate-700 font-semibold hover:bg-slate-100 text-sm">
                         關閉
                     </button>
                     <button type="button" onclick="printWordForm()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-xl font-semibold text-sm shadow-xs flex items-center gap-1.5">
@@ -502,7 +579,7 @@
         </div>
     </div>
 
-    <!-- Reserve Modal -->
+    <!-- Reserve Modal (含項目 1 即時衝突預檢 & 項目 2 智慧記憶) -->
     <div id="reserveModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-xs hidden p-4">
         <div class="bg-white rounded-2xl border border-slate-200 max-w-md w-full p-6 sm:p-7 shadow-xl animate-fade-in max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
@@ -523,9 +600,9 @@
                 </div>
 
                 <!-- Maintenance Schedule Alert Box -->
-                <div id="maintenanceAlertBox" class="hidden p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-[13px] space-y-1.5">
+                <div id="maintenanceAlertBox" class="hidden p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-sm space-y-1.5">
                     <div class="font-semibold text-rose-900 flex items-center gap-1.5">
-                        <i class="fa-solid fa-triangle-exclamation text-rose-600 text-sm"></i>
+                        <i class="fa-solid fa-triangle-exclamation text-rose-600 text-base"></i>
                         設備維護排程時段（該期間暫停借用）：
                     </div>
                     <div id="maintenanceAlertText" class="text-rose-800 font-medium font-mono pl-1">
@@ -534,24 +611,27 @@
                 </div>
 
                 <!-- Existing Occupied Dates Alert Box -->
-                <div id="existingBookingsBox" class="hidden p-3.5 bg-amber-50 border border-amber-200 rounded-xl text-[13px] space-y-1.5">
+                <div id="existingBookingsBox" class="hidden p-3.5 bg-amber-50 border border-amber-200 rounded-xl text-sm space-y-1.5">
                     <div class="font-semibold text-amber-900 flex items-center gap-1.5">
-                        <i class="fa-solid fa-calendar-xmark text-amber-600 text-sm"></i>
+                        <i class="fa-solid fa-calendar-xmark text-amber-600 text-base"></i>
                         本設備已預約時間（請避開下列日期）：
                     </div>
-                    <ul id="existingBookingsList" class="list-disc list-inside text-amber-800 space-y-1 font-medium font-mono pl-1">
+                    <ul id="existingBookingsList" class="list-disc list-inside text-amber-900 space-y-1 font-medium font-mono pl-1">
                         <!-- Populated dynamically -->
                     </ul>
                 </div>
 
                 <div>
-                    <label class="block font-semibold text-slate-700 mb-1.5">借用人姓名 <span class="text-rose-500">*</span></label>
-                    <input type="text" id="formUserName" required placeholder="請輸入同仁真實姓名" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 text-sm">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label class="block font-semibold text-slate-700">借用人姓名 <span class="text-rose-500">*</span></label>
+                        <span id="rememberUserNotice" class="text-[12px] text-emerald-700 font-semibold hidden"><i class="fa-solid fa-check"></i> 已自動帶入上次記錄</span>
+                    </div>
+                    <input type="text" id="formUserName" required placeholder="請輸入同仁真實姓名" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 text-sm">
                 </div>
 
                 <div>
                     <label class="block font-semibold text-slate-700 mb-1.5">所屬科室單位 <span class="text-rose-500">*</span></label>
-                    <select id="formUserDept" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 text-sm">
+                    <select id="formUserDept" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 text-sm">
                         <optgroup label="業務科室">
                             <option value="綜合規劃科" selected>綜合規劃科</option>
                             <option value="訓練推廣科">訓練推廣科</option>
@@ -581,22 +661,31 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                         <label class="block font-semibold text-slate-700 mb-1.5">預約起始日期 <span class="text-rose-500">*</span></label>
-                        <input type="date" id="formStartDate" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-medium font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 text-sm">
+                        <input type="date" id="formStartDate" required onchange="handleReserveDateInputChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 font-medium font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 text-sm">
                     </div>
                     <div>
                         <label class="block font-semibold text-slate-700 mb-1.5">預計歸還日期 <span class="text-rose-500">*</span></label>
-                        <input type="date" id="formEndDate" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-medium font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 text-sm">
+                        <input type="date" id="formEndDate" required onchange="handleReserveDateInputChange()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 font-medium font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 text-sm">
                     </div>
                 </div>
 
-                <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-[13px] text-emerald-800 font-medium flex items-center gap-2">
-                    <i class="fa-solid fa-shield-check text-emerald-600 text-base"></i>
-                    系統具備日期衝突自動阻擋，確定未重疊後即可直接預約！
+                <!-- 項目 1 即時動態衝突預警容器 -->
+                <div id="reserveInstantConflictAlert" class="hidden p-3 bg-rose-50 border border-rose-300 rounded-xl text-sm text-rose-800 space-y-1 animate-fade-in">
+                    <div class="font-bold flex items-center gap-1.5 text-rose-900">
+                        <i class="fa-solid fa-circle-exclamation text-rose-600 text-base"></i>
+                        <span>所選時段衝突，請調整預約日期：</span>
+                    </div>
+                    <div id="reserveInstantConflictMsg" class="font-semibold text-rose-700 pl-5"></div>
+                </div>
+
+                <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-sm text-emerald-900 font-medium flex items-center gap-2">
+                    <i class="fa-solid fa-shield-check text-emerald-600 text-base shrink-0"></i>
+                    <span>系統具備即時時段衝突檢測，逾期未領取將自動釋放！</span>
                 </div>
 
                 <div class="pt-2 flex items-center justify-end gap-3">
-                    <button type="button" onclick="closeReserveModal()" class="px-4 py-2.5 border border-slate-300 rounded-xl text-slate-600 font-semibold hover:bg-slate-100 text-sm">取消</button>
-                    <button type="submit" id="reserveSubmitBtn" class="px-5 py-2.5 bg-sky-700 hover:bg-sky-800 text-white rounded-xl font-semibold text-sm shadow-md shadow-sky-700/20 flex items-center gap-2">
+                    <button type="button" onclick="closeReserveModal()" class="px-4 py-2.5 border border-slate-300 rounded-xl text-slate-700 font-semibold hover:bg-slate-100 text-sm">取消</button>
+                    <button type="submit" id="reserveSubmitBtn" class="px-5 py-2.5 bg-sky-700 hover:bg-sky-800 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-xl font-semibold text-sm shadow-md shadow-sky-700/20 flex items-center gap-2 transition-all">
                         <i class="fa-solid fa-paper-plane"></i> 確認完成預約
                     </button>
                 </div>
@@ -619,18 +708,18 @@
             <form id="adminLoginForm" onsubmit="handleAdminLoginSubmit(event); return false;" class="space-y-4 text-sm">
                 <div>
                     <label class="block font-semibold text-slate-700 mb-1.5">選擇管理者身分</label>
-                    <select id="loginAdminSelect" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 text-sm">
+                    <select id="loginAdminSelect" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 text-sm">
                         <!-- Populated dynamically -->
                     </select>
                 </div>
 
                 <div>
                     <label class="block font-semibold text-slate-700 mb-1.5">管理者密碼</label>
-                    <input type="password" id="loginAdminPin" required placeholder="請輸入驗證密碼" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 text-sm">
+                    <input type="password" id="loginAdminPin" required placeholder="請輸入驗證密碼" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 text-sm">
                 </div>
 
                 <div class="pt-3 flex items-center justify-end gap-2.5">
-                    <button type="button" onclick="closeAdminLoginModal()" class="px-4 py-2.5 border border-slate-300 rounded-xl text-slate-600 font-semibold hover:bg-slate-100 text-sm">取消</button>
+                    <button type="button" onclick="closeAdminLoginModal()" class="px-4 py-2.5 border border-slate-300 rounded-xl text-slate-700 font-semibold hover:bg-slate-100 text-sm">取消</button>
                     <button type="submit" class="px-5 py-2.5 bg-sky-700 hover:bg-sky-800 text-white rounded-xl font-semibold text-sm shadow-md shadow-sky-700/20">登入系統</button>
                 </div>
             </form>
@@ -660,8 +749,8 @@
                 <form onsubmit="handleAddAdminSubmit(event); return false;" class="pt-3 border-t border-slate-100 space-y-3">
                     <label class="block font-semibold text-slate-700">新增管理者帳號</label>
                     <div class="grid grid-cols-2 gap-2">
-                        <input type="text" id="newAdminName" required placeholder="管理者姓名 (例: 秘書室-王小明)" class="bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none text-sm">
-                        <input type="password" id="newAdminPin" required placeholder="設定密碼" class="bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none text-sm">
+                        <input type="text" id="newAdminName" required placeholder="管理者姓名 (例: 秘書室-王小明)" class="bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none text-sm">
+                        <input type="password" id="newAdminPin" required placeholder="設定密碼" class="bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none text-sm">
                     </div>
                     <button type="submit" class="w-full py-2.5 bg-sky-700 hover:bg-sky-800 text-white rounded-xl font-semibold shadow-xs text-sm">確認新增管理者</button>
                 </form>
@@ -684,26 +773,26 @@
             <form id="addLaptopForm" onsubmit="handleAddLaptopSubmit(event); return false;" class="space-y-4 text-sm">
                 <div>
                     <label class="block font-semibold text-slate-700 mb-1.5">設備類別</label>
-                    <select id="addCategory" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none text-sm">
+                    <select id="addCategory" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none text-sm">
                         <!-- Dynamic options -->
                     </select>
                 </div>
 
                 <div>
                     <label class="block font-semibold text-slate-700 mb-1.5">設備代號編號 <span class="text-rose-500">*</span></label>
-                    <input type="text" id="addCode" required placeholder="例: HP14 或 PR01" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-medium font-mono text-slate-800 uppercase focus:outline-none text-sm">
+                    <input type="text" id="addCode" required placeholder="例: HP14 或 PR01" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 font-medium font-mono text-slate-800 uppercase focus:outline-none text-sm">
                 </div>
 
                 <div>
                     <label class="block font-semibold text-slate-700 mb-1.5">初始狀態 (預設: 可借用)</label>
-                    <select id="addStatus" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none text-sm">
+                    <select id="addStatus" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none text-sm">
                         <option value="available" selected>可借用 (預設)</option>
                         <option value="maintenance">維護中</option>
                     </select>
                 </div>
 
                 <div class="pt-3 flex items-center justify-end gap-2.5">
-                    <button type="button" onclick="closeAddLaptopModal()" class="px-4 py-2.5 border border-slate-300 rounded-xl text-slate-600 font-semibold hover:bg-slate-100 text-sm">取消</button>
+                    <button type="button" onclick="closeAddLaptopModal()" class="px-4 py-2.5 border border-slate-300 rounded-xl text-slate-700 font-semibold hover:bg-slate-100 text-sm">取消</button>
                     <button type="submit" class="px-5 py-2.5 bg-sky-700 hover:bg-sky-800 text-white rounded-xl font-semibold shadow-xs text-sm">確認新增</button>
                 </div>
             </form>
@@ -731,44 +820,43 @@
 
                 <div>
                     <label class="block font-semibold text-slate-700 mb-1.5">設備目前狀態</label>
-                    <select id="maintModalStatus" onchange="toggleMaintenanceDateInputs()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 text-sm">
-                        <option value="available">可借用</option>
-                        <option value="maintenance">維護中</option>
-                        <option value="scheduled_maintenance">預約維護 (排定維護時段)</option>
+                    <select id="maintModalStatus" onchange="toggleMaintenanceDateInputs()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 text-sm">
+                        <option value="available">正常 (可借用)</option>
+                        <option value="scheduled_maintenance">設備維護 (排定維護時段)</option>
                     </select>
                 </div>
 
                 <!-- Maintenance Date Range Settings -->
                 <div id="maintDateConfigSection" class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3 hidden">
-                    <div class="font-semibold text-slate-700 text-[13px] flex items-center gap-1.5 text-sky-800">
+                    <div class="font-semibold text-slate-700 text-sm flex items-center gap-1.5 text-sky-800">
                         <i class="fa-solid fa-calendar-days text-sky-600"></i>
-                        維護起訖時段設定（使用者在此期間內將無法預約）
+                        維護起訖時段設定（在此期間內設備為維護中，無法借用）
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                         <div>
-                            <label class="block text-[13px] font-semibold text-slate-600 mb-1">維護起始日期 <span class="text-rose-500">*</span></label>
-                            <input type="date" id="maintStartDate" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 font-medium font-mono text-slate-800 text-[13px] focus:outline-none focus:ring-2 focus:ring-sky-500/20">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">維護起始日期 <span class="text-rose-500">*</span></label>
+                            <input type="date" id="maintStartDate" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 font-medium font-mono text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20">
                         </div>
                         <div>
-                            <label class="block text-[13px] font-semibold text-slate-600 mb-1">維護結束日期 <span class="text-rose-500">*</span></label>
-                            <input type="date" id="maintEndDate" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 font-medium font-mono text-slate-800 text-[13px] focus:outline-none focus:ring-2 focus:ring-sky-500/20">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">維護結束日期 <span class="text-rose-500">*</span></label>
+                            <input type="date" id="maintEndDate" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 font-medium font-mono text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20">
                         </div>
                     </div>
                     <div>
-                        <label class="block text-[13px] font-semibold text-slate-600 mb-1">維護原因或備註 (例: 定期年度保養、硬體檢修)</label>
-                        <input type="text" id="maintReason" placeholder="例: 定期年度保養、硬體檢修" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 font-medium text-slate-800 text-[13px] focus:outline-none focus:ring-2 focus:ring-sky-500/20">
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">維護原因或備註 (例: 定期年度保養、硬體檢修)</label>
+                        <input type="text" id="maintReason" placeholder="例: 定期年度保養、硬體檢修" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 font-medium text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20">
                     </div>
                 </div>
 
                 <div class="pt-2 flex items-center justify-between gap-2.5">
                     <div id="clearMaintBtnWrapper" class="hidden">
-                        <button type="button" onclick="clearMaintenanceSchedule()" class="px-3.5 py-2 border border-rose-200 text-rose-600 hover:bg-rose-50 rounded-xl font-semibold text-[13px] transition-colors">
+                        <button type="button" onclick="clearMaintenanceSchedule()" class="px-3.5 py-2 border border-rose-200 text-rose-600 hover:bg-rose-50 rounded-xl font-semibold text-sm transition-colors">
                             清除維護排程
                         </button>
                     </div>
                     <div class="flex items-center gap-2 ml-auto">
-                        <button type="button" onclick="closeStatusMaintenanceModal()" class="px-4 py-2 border border-slate-300 rounded-xl text-slate-600 font-semibold hover:bg-slate-100 text-[13px] sm:text-sm">取消</button>
-                        <button type="submit" class="px-5 py-2 bg-sky-700 hover:bg-sky-800 text-white rounded-xl font-semibold shadow-md shadow-sky-700/20 text-[13px] sm:text-sm">儲存設定</button>
+                        <button type="button" onclick="closeStatusMaintenanceModal()" class="px-4 py-2 border border-slate-300 rounded-xl text-slate-700 font-semibold hover:bg-slate-100 text-sm">取消</button>
+                        <button type="submit" class="px-5 py-2 bg-sky-700 hover:bg-sky-800 text-white rounded-xl font-semibold shadow-md shadow-sky-700/20 text-sm">儲存設定</button>
                     </div>
                 </div>
             </form>
@@ -799,12 +887,12 @@
                     <label class="block font-semibold text-slate-700 mb-1.5">
                         實際領取人員姓名 (借出人員) <span class="text-rose-500">*</span>
                     </label>
-                    <input type="text" id="pickupActualUserName" required placeholder="請輸入前來領取設備之同仁姓名" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 text-sm">
-                    <p class="text-xs text-slate-500 mt-1">系統預設帶入原預約借用人，若由其他同仁代領可直接修改。</p>
+                    <input type="text" id="pickupActualUserName" required placeholder="請輸入前來領取設備之同仁姓名" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 text-sm">
+                    <p class="text-xs sm:text-[13px] text-slate-500 mt-1">系統預設帶入原預約借用人，若由其他同仁代領可直接修改。</p>
                 </div>
 
                 <div class="pt-2 flex items-center justify-end gap-2.5">
-                    <button type="button" onclick="closeConfirmPickupModal()" class="px-4 py-2 border border-slate-300 rounded-xl text-slate-600 font-semibold hover:bg-slate-100 text-sm">取消</button>
+                    <button type="button" onclick="closeConfirmPickupModal()" class="px-4 py-2 border border-slate-300 rounded-xl text-slate-700 font-semibold hover:bg-slate-100 text-sm">取消</button>
                     <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold shadow-md shadow-indigo-600/20 text-sm flex items-center gap-1.5">
                         <i class="fa-solid fa-check"></i> 確認出借交付
                     </button>
@@ -837,12 +925,12 @@
                     <label class="block font-semibold text-slate-700 mb-1.5">
                         實際歸還人員姓名 <span class="text-rose-500">*</span>
                     </label>
-                    <input type="text" id="returnActualUserName" required placeholder="請輸入送回設備之同仁姓名" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 text-sm">
-                    <p class="text-xs text-slate-500 mt-1">系統預設帶入原借用人，若由其他同仁代還可直接修改。</p>
+                    <input type="text" id="returnActualUserName" required placeholder="請輸入送回設備之同仁姓名" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 text-sm">
+                    <p class="text-xs sm:text-[13px] text-slate-500 mt-1">系統預設帶入原借用人，若由其他同仁代還可直接修改。</p>
                 </div>
 
                 <div class="pt-2 flex items-center justify-end gap-2.5">
-                    <button type="button" onclick="closeConfirmReturnModal()" class="px-4 py-2 border border-slate-300 rounded-xl text-slate-600 font-semibold hover:bg-slate-100 text-sm">取消</button>
+                    <button type="button" onclick="closeConfirmReturnModal()" class="px-4 py-2 border border-slate-300 rounded-xl text-slate-700 font-semibold hover:bg-slate-100 text-sm">取消</button>
                     <button type="submit" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold shadow-md shadow-emerald-600/20 text-sm flex items-center gap-1.5">
                         <i class="fa-solid fa-check"></i> 確認點收入庫
                     </button>
@@ -869,14 +957,14 @@
             <div>
                 <label class="block font-semibold text-slate-700 mb-1.5">系統網址：</label>
                 <div class="flex items-center gap-2">
-                    <input type="text" id="syncUrlDisplay" readonly class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-[13px] font-mono text-slate-600 select-all focus:outline-none">
+                    <input type="text" id="syncUrlDisplay" readonly class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-mono text-slate-700 select-all focus:outline-none">
                     <button type="button" onclick="copySyncLink()" class="px-4 py-2.5 bg-sky-700 hover:bg-sky-800 text-white font-semibold rounded-xl whitespace-nowrap shadow-xs transition-all flex items-center gap-1.5 text-sm">
                         <i class="fa-solid fa-copy"></i> 複製網址
                     </button>
                 </div>
             </div>
 
-            <button type="button" onclick="closeSyncInfoModal()" class="w-full py-2.5 border border-slate-200 text-slate-600 font-semibold rounded-xl hover:bg-slate-50 text-sm">關閉</button>
+            <button type="button" onclick="closeSyncInfoModal()" class="w-full py-2.5 border border-slate-300 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 text-sm">關閉</button>
         </div>
     </div>
 
@@ -894,25 +982,13 @@
         // 若保持 null 或空值，系統將自動以「本機離線暫存模式 (localStorage)」穩定運作。
         // =========================================================================
         window.userFirebaseConfig = null;
-        
-        window.userFirebaseConfig = {
-            apiKey: "AIzaSyBt3Nvo4GBKzpG2aUVYg9cB5B7HUEehthY",
-              authDomain: "it-equipment-lending-sys-fc74e.firebaseapp.com",
-              projectId: "it-equipment-lending-sys-fc74e",
-              storageBucket: "it-equipment-lending-sys-fc74e.firebasestorage.app",
-              messagingSenderId: "481340867051",
-              appId: "1:481340867051:web:242c94af63fee3faae19ae"
-
-        };
-        
 
         window.db = null;
         window.auth = null;
         window.currentUser = null;
 
         // High-resolution embedded Base64 PNG for Workforce Development Agency logo
-        // Guaranteed to render inside MS Word 97-2024 / Office 365 without broken [x] images
-        window.officialLogoDataUrl = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAACgCAMAAAC8XTautoreGAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAC7lBMVEUAAAD///+ZmZmampqioqKlpaWqqqqvr6+wsLCzs7O1tbW4uLi7u7u+vr7AwMDDw8PFxcXIyMjKysrNzc3Pz8/S0tLV1dXW1tbY2NjZ2dna2trc3Nzd3d3f39/g4ODh4eHi4uLj4+Pk5OTl5eXm5ubn5+fo6Ojp6enq6urr6+vs7Ozt7e3u7u7v7+/w8PDx8fHy8vLz8/P09PT19fX29vb39/f4+Pj5+fn6+vr7+/v8/Pz9/f3+/v7////09vj4+frn6e3v8PLh4+bm6OvZ3N/W2t7P1NnEzNPBzM+8x8qzv8KsuL+rsr2lrLqgqLaapbORn6yKm6mEl6V8kqJ1i5xuhplogJRjfY9afIpUeYZMeINIdn9Dcn0+b3k7bXczam0uZm0pY2okX2ceXGMZW18UVloSUFcNTlMIRk4EQksBPkcAPUQBPEEBOkEAOD8AND4AMj0AMTwALzsAKjoAKDkAJzgAJjcAJDYAITYAIjUAIAMAAAAfHx8eHh4bGxsZGRkXFxUVFRMREREPDw8NDQ0LCwsJCQkHBwcFBQUDAwMBAQEAAABMTE1+fn6tra26urqfn5+vr6+urq5xcXFmZmaAgICcnJxISEgtLS1ycnKqqqqLi4tcXFxBQUFAQECpqaljY2OQkJCLi4tTU1M1NTUxMTHU1NR7e3uCgoJlZWVDQ0NUVFQ5OTkYGBhQUFCXl5eUlJSRkZFPT09DQ0NUVFQ8PDxTU1NEREQtLS06OjpVVVU4ODg9PT1BQUE6OjpOTk5OTk41NTU3NzcvLy8xMTE9PT08PDwtLS0uLi4xMTEvLy8uLi4tLS0rKyosLCwsLCwtLS0sLCwsLCwtLS0sLCwtLS0sLCwsLCwtLS0sLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0AAAD///+n88z4AAAAbnRSTlMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAv55+cAAAAVZJREFUeNrt2lFSwzAMBtBS9v53jplOmsZ21p0dZ2A/wTfVkmvVip+n53kURVEURVEURVEURVEURVEURVEURfFfnufXp59/7yAfx3F9vM9rZq277m95bZk1v97j0q57W97a9vL6nN7a8jovr2n4631s1b26V3V07+re1tG9r6N7X0f3vo7ufR3d+zq693V07+vo3tfRva+je19H976O7n0d3fs6uvd1dO/r6N7X0b2vo3tfR/e+ju59Hd37Orr3dXTv6+je19G9r6N7X0f3vo7ufR3d+zq693V07+vo3tfRva+je19H976O7n0d3fs6uvd1dO/r6N7X0b2vo3tfR/e+ju59Hd37Orr3dXTv6+je19G9r6N7X0f3vo7ufR3d+zq693V07+vo3tfRva+je19H976O7n0d3fs6uvd1dO/r6N7X0f0b3Z+/+Pz5k6IoiqIoiqIoiqIoiqIoiqIoiqIo/sv7B+r1U1215/kTAAAAAElFTkSuQmCC';
+        window.officialLogoDataUrl = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAACgCAMAAAC8XTautoreGAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAC7lBMVEUAAAD///+ZmZmampqioqKlpaWqqqqvr6+wsLCzs7O1tbW4uLi7u7u+vr7AwMDDw8PFxcXIyMjKysrNzc3Pz8/S0tLV1dXW1tbY2NjZ2dna2trc3Nzd3d3f39/g4ODh4eHi4uLj4+Pk5OTl5eXm5ubn5+fo6Ojp6enq6urr6+vs7Ozt7e3u7u7v7+/w8PDx8fHy8vLz8/P09PT19fX29vb39/f4+Pj5+fn6+vr7+/v8/Pz9/f3+/v7////09vj4+frn6e3v8PLh4+bm6OvZ3N/W2t7P1NnEzNPBzM+8x8qzv8KsuL+rsr2lrLqgqLaapbORn6yKm6mEl6V8kqJ1i5xuhplogJRjfY9afIpUeYZMeINIdn9Dcn0+b3k7bXczam0uZm0pY2okX2ceXGMZW18UVloSUFcNTlMIRk4EQksBPkcAPUQBPEEBOkEAOD8AND4AMj0AMTwALzsAKjoAKDkAJzgAJjcAJDYAITYAIjUAIAMAAAAfHx8eHh4bGxsZGRkXFxUVFRMREREPDw8NDQ0LCwsJCQkHBwcFBQUDAwMBAQEAAABMTE1+fn6tra26urqfn5+vr6+urq5xcXFmZmaAgICcnJxISEgtLS1ycnKqqqqLi4tcXFxBQUFAQECpqaljY2OQkJCLi4tTU1M1NTUxMTHU1NR7e3uCgoJlZWVDQ0NUVFQ5OTkYGBhQUFCXl5eUlJSRkZFPT09DQ0NUVFQ8PDxTU1NEREQtLS06OjpVVVU4ODg9PT1BQUE6OjpOTk5OTk41NTU3NzcvLy8xMTE9PT08PDwtLS0uLi4xMTEvLy8uLi4tLS0rKyosLCwsLCwtLS0sLCwsLCwtLS0sLCwtLS0sLCwsLCwtLS0sLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0sLCwsLCwtLS0AAAD///+n88z4AAAAbnRSTlMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAv55+cAAAAVZJREFUeNrt2lFSwzAMBtBS9v53jplOmsZ21p0dZ2A/wTfVkmvVip+n53kURVEURVEURVEURVEURVEURVEURfFfnufXp59/7yAfx3F9vM9rZq277m95bZk1v97j0q57W97a9vL6nN7a8jovr2n4631s1b26V3V07+re1tG9r6N7X0f3vo7ufR3d+zq693V07+vo3tfRva+je19H976O7n0d3fs6uvd1dO/r6N7X0b2vo3tfR/e+ju59Hd37Orr3dXTv6+je19G9r6N7X0f3vo7ufR3d+zq693V07+vo3tfRva+je19H976O7n0d3fs6uvd1dO/r6N7X0b2vo3tfR/e+ju59Hd37Orr3dXTv6+je19G9r6N7X0f3vo7ufR3d+zq693V07+vo3tfRva+je19H976O7n0d3fs6uvd1dO/r6N7X0b2vo3tfR/e+ju59Hd37Orr3dXTv6+je19G9r6N7X0f3vo7ufR3d+zq693V07+vo3tfRva+je19H976O7n0d3fs6uvd1dO/r6N7X0b2vo3tfR0f3Z+/+Pz5k6IoiqIoiqIoiqIoiqIoiqIoiqIo/sv7B+r1U1215/kTAAAAAElFTkSuQmCC';
 
         const defaultCategories = ['筆電', '投影機', '平板電腦', '會議攝影機'];
 
@@ -943,7 +1019,6 @@
         window.resPageSize = 10;
         window.resCurrentPage = 1;
 
-        // Ensure logoDataUrl defaults reliably to embedded Base64 PNG
         window.logoDataUrl = window.officialLogoDataUrl;
         try {
             const img = new Image();
@@ -991,6 +1066,115 @@
             return str.length > 5 ? str.substring(5) : str;
         };
 
+        // Helper: Get local date string YYYY-MM-DD
+        window.getTodayDateString = function() {
+            const now = new Date();
+            const tzOffset = now.getTimezoneOffset() * 60000;
+            return (new Date(now.getTime() - tzOffset)).toISOString().split('T')[0];
+        };
+
+        // Helper: 判定預約是否已過期未領取
+        window.isReservationExpired = function(r, todayStr) {
+            if (!r) return false;
+            if (r.status !== 'approved' && r.status !== 'pending') return false;
+            if (!r.endDate) return false;
+            const today = todayStr || window.getTodayDateString();
+            return today > r.endDate;
+        };
+
+        // Helper: 判定排定維護是否已期滿過期
+        window.isMaintenanceExpired = function(laptop, todayStr) {
+            if (!laptop) return false;
+            if (!laptop.maintEndDate || typeof laptop.maintEndDate !== 'string') return false;
+            const today = todayStr || window.getTodayDateString();
+            return today > laptop.maintEndDate;
+        };
+
+        // 核心狀態引擎：計算設備當前實際維護狀態
+        window.getLaptopMaintenanceState = function(laptop, todayStr) {
+            if (!laptop) return null;
+            const today = todayStr || window.getTodayDateString();
+
+            if (laptop.maintStartDate && laptop.maintEndDate && 
+                typeof laptop.maintStartDate === 'string' && typeof laptop.maintEndDate === 'string') {
+                
+                if (today > laptop.maintEndDate) {
+                    return null;
+                }
+
+                if (today >= laptop.maintStartDate && today <= laptop.maintEndDate) {
+                    return 'active_maintenance';
+                }
+
+                if (today < laptop.maintStartDate) {
+                    return 'scheduled_maintenance';
+                }
+            }
+
+            if (laptop.status === 'maintenance') {
+                return 'active_maintenance';
+            }
+
+            return null;
+        };
+
+        // Helper: 自動掃描並清理逾期維護排程，立即開放設備借用
+        window.autoExpireScheduledMaintenance = async function() {
+            const today = window.getTodayDateString();
+            let changed = false;
+
+            for (const laptop of window.laptops) {
+                if (window.isMaintenanceExpired(laptop, today)) {
+                    laptop.status = 'available';
+                    delete laptop.maintStartDate;
+                    delete laptop.maintEndDate;
+                    delete laptop.maintReason;
+                    changed = true;
+
+                    if (window.db && window.auth?.currentUser) {
+                        try {
+                            const appId = window.getAppId();
+                            await setDoc(doc(window.db, 'artifacts', appId, 'public', 'data', 'laptops_v13', laptop.id), laptop);
+                        } catch (err) {
+                            console.error("Auto expire maintenance cloud sync error:", err);
+                        }
+                    }
+                }
+            }
+
+            if (changed) {
+                localStorage.setItem('cht_laptops_v13', JSON.stringify(window.laptops));
+            }
+        };
+
+        // Helper: 自動掃描並將逾期未領取之預約標記為「已取消 (逾期未領取)」
+        window.autoExpirePendingReservations = async function() {
+            const today = window.getTodayDateString();
+            let changed = false;
+
+            for (const r of window.reservations) {
+                if ((r.status === 'approved' || r.status === 'pending') && r.endDate && today > r.endDate) {
+                    r.status = 'cancelled';
+                    r.cancelledAt = Date.now();
+                    r.cancelReason = '逾期未領取自動取消';
+                    changed = true;
+
+                    if (window.db && window.auth?.currentUser) {
+                        try {
+                            const appId = window.getAppId();
+                            await setDoc(doc(window.db, 'artifacts', appId, 'public', 'data', 'reservations_v13', r.id), r);
+                        } catch (err) {
+                            console.error("Auto expire cloud sync error:", err);
+                        }
+                    }
+                }
+            }
+
+            if (changed) {
+                localStorage.setItem('cht_reservations_v13', JSON.stringify(window.reservations));
+            }
+        };
+
         // Helper: Check if two date ranges [s1, e1] and [s2, e2] overlap
         window.isDateOverlap = function(s1, e1, s2, e2) {
             return (s1 <= e2) && (e1 >= s2);
@@ -1006,10 +1190,18 @@
         };
 
         window.refreshAllViews = function() {
+            window.autoExpirePendingReservations();
+            window.autoExpireScheduledMaintenance();
             updateCategoryFilterOptions();
             renderCategoryManagementUI();
             renderCategorySelectOptions();
             renderLaptopCodeFilterOptions();
+            if (typeof window.renderAdminCategoryFilterOptions === 'function') {
+                window.renderAdminCategoryFilterOptions();
+            }
+            if (typeof window.renderAdminDeviceCodeFilterOptions === 'function') {
+                window.renderAdminDeviceCodeFilterOptions();
+            }
             renderResFilterOptions();
             renderLaptops();
             renderReservations();
@@ -1046,6 +1238,67 @@
             filterLaptops();
         };
 
+        window.renderAdminCategoryFilterOptions = function() {
+            const filterEl = document.getElementById('adminCategoryFilter');
+            if (!filterEl) return;
+            const currentVal = filterEl.value || 'ALL';
+
+            const categoriesSet = new Set([...window.customCategories]);
+            window.laptops.forEach(l => {
+                if (l.category) categoriesSet.add(l.category);
+            });
+
+            let optionsHtml = `<option value="ALL">全部設備類別</option>`;
+            categoriesSet.forEach(cat => {
+                const count = window.laptops.filter(l => (l.category || '筆電') === cat).length;
+                const isSelected = currentVal === cat ? 'selected' : '';
+                optionsHtml += `<option value="${escapeHtml(cat)}" ${isSelected}>${escapeHtml(cat)} (${count})</option>`;
+            });
+
+            filterEl.innerHTML = optionsHtml;
+        };
+
+        window.renderAdminDeviceCodeFilterOptions = function() {
+            const codeSelect = document.getElementById('adminDeviceCodeFilter');
+            if (!codeSelect) return;
+            const currentVal = codeSelect.value || 'ALL';
+            const categoryVal = document.getElementById('adminCategoryFilter')?.value || 'ALL';
+
+            let targetLaptops = window.laptops;
+            if (categoryVal !== 'ALL') {
+                targetLaptops = targetLaptops.filter(l => (l.category || '筆電') === categoryVal);
+            }
+
+            let optionsHtml = `<option value="ALL">全部設備代號</option>`;
+            targetLaptops.forEach(lap => {
+                const code = lap.code || lap.id;
+                const isSelected = currentVal === lap.id ? 'selected' : '';
+                optionsHtml += `<option value="${escapeHtml(lap.id)}" ${isSelected}>${escapeHtml(code)} (${escapeHtml(lap.category || '筆電')})</option>`;
+            });
+
+            codeSelect.innerHTML = optionsHtml;
+        };
+
+        window.handleAdminCategoryFilterChange = function() {
+            window.renderAdminDeviceCodeFilterOptions();
+            const codeSelect = document.getElementById('adminDeviceCodeFilter');
+            if (codeSelect) codeSelect.value = 'ALL';
+            window.renderAdminLaptops();
+        };
+
+        window.resetAdminEquipmentFilters = function() {
+            const catF = document.getElementById('adminCategoryFilter');
+            const codeF = document.getElementById('adminDeviceCodeFilter');
+            const stF = document.getElementById('adminStatusFilter');
+            if (catF) catF.value = 'ALL';
+            if (codeF) {
+                window.renderAdminDeviceCodeFilterOptions();
+                codeF.value = 'ALL';
+            }
+            if (stF) stF.value = 'ALL';
+            window.renderAdminLaptops();
+        };
+
         window.renderLaptops = function() {
             const grid = document.getElementById('laptopGrid');
             if (!grid) return;
@@ -1053,20 +1306,22 @@
             const categoryVal = document.getElementById('categoryFilter')?.value || 'ALL';
             const statusVal = document.getElementById('statusFilter')?.value || 'ALL';
             const selectedCode = document.getElementById('deviceCodeFilter')?.value || 'ALL';
-
-            const now = new Date();
-            const tzOffset = now.getTimezoneOffset() * 60000;
-            const today = (new Date(now.getTime() - tzOffset)).toISOString().split('T')[0];
+            const today = window.getTodayDateString();
 
             const filtered = window.laptops.filter(laptop => {
                 const cat = laptop.category || '筆電';
                 const code = laptop.code || laptop.id;
                 
-                const approvedCount = window.reservations.filter(r => r.laptopId === laptop.id && (r.status === 'approved' || r.status === 'pending')).length;
+                const approvedCount = window.reservations.filter(r => 
+                    r.laptopId === laptop.id && 
+                    (r.status === 'approved' || r.status === 'pending') &&
+                    !window.isReservationExpired(r, today)
+                ).length;
 
-                const hasMaintSchedule = !!(laptop.maintStartDate && laptop.maintEndDate && typeof laptop.maintStartDate === 'string' && typeof laptop.maintEndDate === 'string');
-                const isDuringMaintenance = hasMaintSchedule && (today >= laptop.maintStartDate && today <= laptop.maintEndDate);
-                const effectiveStatus = (laptop.status === 'maintenance' || isDuringMaintenance) ? 'maintenance' : (laptop.status === 'borrowed' ? 'borrowed' : 'available');
+                const maintState = window.getLaptopMaintenanceState(laptop, today);
+                const isUnderMaintenanceNow = (maintState === 'active_maintenance');
+                
+                const effectiveStatus = isUnderMaintenanceNow ? 'maintenance' : (laptop.status === 'borrowed' ? 'borrowed' : 'available');
 
                 if (categoryVal !== 'ALL' && cat !== categoryVal) return false;
                 
@@ -1088,10 +1343,10 @@
 
             if (filtered.length === 0) {
                 grid.innerHTML = `
-                    <div class="col-span-full bg-white rounded-2xl p-8 border border-slate-200 text-center text-slate-500 font-medium text-sm">
+                    <div class="col-span-full bg-white rounded-2xl p-8 border border-slate-200 text-center text-slate-600 font-medium text-sm">
                         <i class="fa-solid fa-magnifying-glass text-3xl mb-2 text-slate-300 block"></i>
                         <p class="mb-3">沒有找到符合篩選條件的公務設備</p>
-                        <button type="button" onclick="resetEquipmentFilters()" class="inline-flex items-center gap-1.5 px-4 py-2 bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 rounded-xl font-semibold text-[13px] transition-colors">
+                        <button type="button" onclick="resetEquipmentFilters()" class="inline-flex items-center gap-1.5 px-4 py-2 bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 rounded-xl font-semibold text-sm transition-colors">
                             <i class="fa-solid fa-rotate-left"></i> 清除設備篩選條件
                         </button>
                     </div>
@@ -1105,52 +1360,66 @@
 
                 const activeReservations = window.reservations.filter(r => 
                     r.laptopId === laptop.id && 
-                    (r.status === 'approved' || r.status === 'pending' || r.status === 'active')
+                    (r.status === 'approved' || r.status === 'pending' || r.status === 'active') &&
+                    !window.isReservationExpired(r, today)
                 );
-                const approvedCount = activeReservations.length;
+                const approvedCount = activeReservations.filter(r => r.status === 'approved' || r.status === 'pending').length;
 
                 let statusBadge = '';
                 let isAvailable = true;
 
-                const hasMaintSchedule = !!(laptop.maintStartDate && laptop.maintEndDate && typeof laptop.maintStartDate === 'string' && typeof laptop.maintEndDate === 'string');
-                const isDuringMaintenance = hasMaintSchedule && (today >= laptop.maintStartDate && today <= laptop.maintEndDate);
-                const isUnderMaintenanceNow = laptop.status === 'maintenance' || isDuringMaintenance;
+                const maintState = window.getLaptopMaintenanceState(laptop, today);
+                const isUnderMaintenanceNow = (maintState === 'active_maintenance');
+                const isScheduledMaintenance = (maintState === 'scheduled_maintenance');
 
                 if (isUnderMaintenanceNow) {
-                    const maintDateInfo = hasMaintSchedule ? ` (${window.formatShortDate(laptop.maintStartDate)}~${window.formatShortDate(laptop.maintEndDate)})` : '';
-                    statusBadge = `<span class="bg-slate-100 text-slate-600 border border-slate-200 text-[13px] font-semibold px-2.5 py-1 rounded-lg inline-flex items-center gap-1"><i class="fa-solid fa-screwdriver-wrench text-slate-500"></i> 維護中${maintDateInfo}</span>`;
+                    const hasDates = laptop.maintStartDate && laptop.maintEndDate;
+                    const maintDateInfo = hasDates ? ` (${window.formatShortDate(laptop.maintStartDate)}~${window.formatShortDate(laptop.maintEndDate)})` : '';
+                    statusBadge = `<span class="bg-slate-100 text-slate-700 border border-slate-300 text-sm font-semibold px-2.5 py-1 rounded-lg inline-flex items-center gap-1"><i class="fa-solid fa-screwdriver-wrench text-slate-600"></i> 維護中${maintDateInfo}</span>`;
                     isAvailable = false;
                 } else if (laptop.status === 'borrowed') {
-                    statusBadge = `<span class="bg-sky-100 text-sky-800 border border-sky-200 text-[13px] font-semibold px-2.5 py-1 rounded-lg inline-flex items-center gap-1"><i class="fa-solid fa-laptop-code text-sky-600"></i> 出借使用中</span>`;
+                    statusBadge = `<span class="bg-sky-100 text-sky-800 border border-sky-200 text-sm font-semibold px-2.5 py-1 rounded-lg inline-flex items-center gap-1"><i class="fa-solid fa-laptop-code text-sky-600"></i> 出借使用中</span>`;
                     isAvailable = false;
                 } else if (approvedCount > 0) {
-                    statusBadge = `<span class="bg-indigo-100 text-indigo-800 border border-indigo-200 text-[13px] font-semibold px-2.5 py-1 rounded-lg inline-flex items-center gap-1"><i class="fa-solid fa-hand-holding-hand text-indigo-600"></i> 可借用 (已預約${approvedCount}筆)</span>`;
+                    statusBadge = `<span class="bg-indigo-100 text-indigo-800 border border-indigo-200 text-sm font-semibold px-2.5 py-1 rounded-lg inline-flex items-center gap-1"><i class="fa-solid fa-hand-holding-hand text-indigo-600"></i> 可借用 (已預約${approvedCount}筆)</span>`;
                     isAvailable = true;
                 } else {
-                    statusBadge = `<span class="bg-emerald-100 text-emerald-800 border border-emerald-200 text-[13px] font-semibold px-2.5 py-1 rounded-lg inline-flex items-center gap-1"><i class="fa-solid fa-circle-check text-emerald-600"></i> 可借用</span>`;
+                    statusBadge = `<span class="bg-emerald-100 text-emerald-800 border border-emerald-200 text-sm font-semibold px-2.5 py-1 rounded-lg inline-flex items-center gap-1"><i class="fa-solid fa-circle-check text-emerald-600"></i> 可借用</span>`;
                     isAvailable = true;
                 }
 
                 let approvedNotice = '';
                 if (approvedCount > 0) {
-                    const latest = activeReservations[0];
+                    const pendingList = activeReservations.filter(r => r.status === 'approved' || r.status === 'pending');
+                    const latest = pendingList[0] || activeReservations[0];
                     const sShort = window.formatShortDate(latest.startDate);
                     const eShort = window.formatShortDate(latest.endDate);
                     const dateRangeStr = (sShort || eShort) ? ` (${sShort}~${eShort})` : '';
+                    const moreBadge = activeReservations.length > 1 ? `<span class="text-xs bg-indigo-600 text-white px-1.5 py-0.5 rounded font-bold ml-1">+${activeReservations.length}筆</span>` : '';
                     approvedNotice = `
-                        <div onclick="filterByStat('approved')" class="mt-2 text-[13px] font-medium text-indigo-800 bg-indigo-50/90 p-2 rounded-xl border border-indigo-200 flex items-center justify-between cursor-pointer hover:bg-indigo-100 transition-colors" title="篩選待領取設備">
-                            <span class="flex items-center gap-1 truncate"><i class="fa-solid fa-calendar-day text-indigo-600 shrink-0"></i> ${escapeHtml(latest.userDept || '')} ${escapeHtml(latest.userName || '')}${dateRangeStr}</span>
-                            <span class="text-[12px] bg-indigo-200 text-indigo-900 px-2 py-0.5 rounded font-bold shrink-0 ml-1">已預約</span>
+                        <div onclick="openDeviceScheduleModal('${laptop.id}')" class="mt-2 text-sm font-medium text-indigo-900 bg-indigo-50/90 hover:bg-indigo-100 p-2.5 rounded-xl border border-indigo-200 flex items-center justify-between cursor-pointer transition-all shadow-xs group" title="點擊查看本設備所有預約與維護時段明細">
+                            <span class="flex items-center gap-1.5 truncate">
+                                <i class="fa-solid fa-calendar-day text-indigo-600 shrink-0 group-hover:scale-110 transition-transform"></i>
+                                <span class="truncate font-semibold">${escapeHtml(latest.userDept || '')} ${escapeHtml(latest.userName || '')}${dateRangeStr}</span>
+                            </span>
+                            <div class="flex items-center shrink-0 ml-1.5">
+                                <span class="text-xs sm:text-[13px] bg-indigo-200 text-indigo-950 px-2 py-0.5 rounded font-bold">已預約</span>
+                                ${moreBadge}
+                                <i class="fa-solid fa-chevron-right text-xs text-indigo-500 ml-1 group-hover:translate-x-0.5 transition-transform"></i>
+                            </div>
                         </div>
                     `;
                 }
 
                 let maintNotice = '';
-                if (hasMaintSchedule && !isUnderMaintenanceNow) {
+                if (isScheduledMaintenance) {
                     maintNotice = `
-                        <div class="mt-1.5 text-[13px] font-medium text-amber-800 bg-amber-50 p-2 rounded-xl border border-amber-200 flex items-center gap-1.5 font-mono">
-                            <i class="fa-solid fa-wrench text-amber-600 shrink-0"></i>
-                            <span class="truncate">排定維護: ${escapeHtml(laptop.maintStartDate || '')} ~ ${escapeHtml(laptop.maintEndDate || '')}</span>
+                        <div onclick="openDeviceScheduleModal('${laptop.id}')" class="mt-1.5 text-sm font-medium text-amber-900 bg-amber-50 hover:bg-amber-100 p-2.5 rounded-xl border border-amber-200 flex items-center justify-between cursor-pointer transition-all shadow-xs group font-mono" title="點擊查看本設備所有預約與維護時段明細">
+                            <div class="flex items-center gap-1.5 truncate">
+                                <i class="fa-solid fa-wrench text-amber-600 shrink-0 group-hover:scale-110 transition-transform"></i>
+                                <span class="truncate font-semibold">排定維護: ${escapeHtml(laptop.maintStartDate || '')} ~ ${escapeHtml(laptop.maintEndDate || '')}</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-amber-500 ml-1 group-hover:translate-x-0.5 transition-transform"></i>
                         </div>
                     `;
                 }
@@ -1159,7 +1428,7 @@
                     <div class="bg-white rounded-2xl border ${approvedCount > 0 ? 'border-indigo-300 ring-2 ring-indigo-50' : 'border-slate-200/90'} p-5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
                         <div>
                             <div class="flex items-center justify-between mb-3">
-                                <span class="bg-sky-50 text-sky-800 border border-sky-100 text-[13px] font-semibold px-2.5 py-0.5 rounded-md">${escapeHtml(cat)}</span>
+                                <span class="bg-sky-50 text-sky-800 border border-sky-100 text-sm font-semibold px-2.5 py-0.5 rounded-md">${escapeHtml(cat)}</span>
                                 ${statusBadge}
                             </div>
                             <h3 class="text-2xl font-bold text-slate-900 font-mono tracking-normal my-2">${escapeHtml(code)}</h3>
@@ -1180,19 +1449,15 @@
         };
 
         window.updateStats = function() {
-            const now = new Date();
-            const tzOffset = now.getTimezoneOffset() * 60000;
-            const today = (new Date(now.getTime() - tzOffset)).toISOString().split('T')[0];
+            const today = window.getTodayDateString();
 
             let availCount = 0;
             let borrowedCount = 0;
             let maintCount = 0;
 
             window.laptops.forEach(l => {
-                const hasMaint = !!(l.maintStartDate && l.maintEndDate);
-                const isDuringMaint = hasMaint && (today >= l.maintStartDate && today <= l.maintEndDate);
-
-                if (l.status === 'maintenance' || isDuringMaint) {
+                const maintState = window.getLaptopMaintenanceState(l, today);
+                if (maintState === 'active_maintenance') {
                     maintCount++;
                 } else if (l.status === 'borrowed') {
                     borrowedCount++;
@@ -1201,7 +1466,10 @@
                 }
             });
 
-            const approvedCount = window.reservations.filter(r => r.status === 'approved' || r.status === 'pending').length;
+            const approvedCount = window.reservations.filter(r => 
+                (r.status === 'approved' || r.status === 'pending') &&
+                !window.isReservationExpired(r, today)
+            ).length;
 
             const elAvail = document.getElementById('statAvailable');
             const elApproved = document.getElementById('statApproved');
@@ -1252,7 +1520,6 @@
             }
         };
 
-        // 點擊四大統計卡片統一行為：停留在設備預約頁面並篩選設備狀態
         window.filterByStat = function(statusKey) {
             window.highlightActiveStatCard(statusKey);
             switchTab('laptops');
@@ -1277,6 +1544,223 @@
             window.filterLaptops();
         };
 
+        // 開啟「設備時段排程明細」彈跳視窗
+        window.openDeviceScheduleModal = function(laptopId) {
+            const laptop = window.laptops.find(l => l.id === laptopId);
+            if (!laptop) return;
+
+            window.currentScheduleModalLaptopId = laptopId;
+
+            const today = window.getTodayDateString();
+            const badgeEl = document.getElementById('scheduleModalDeviceBadge');
+            const contentEl = document.getElementById('deviceScheduleDetailContent');
+            const reserveBtn = document.getElementById('scheduleModalReserveBtn');
+
+            if (badgeEl) {
+                badgeEl.innerText = `${laptop.code || laptop.id} (${laptop.category || '筆電'})`;
+            }
+
+            const maintState = window.getLaptopMaintenanceState(laptop, today);
+            const isUnderMaintenanceNow = (maintState === 'active_maintenance');
+
+            if (reserveBtn) {
+                if (isUnderMaintenanceNow) {
+                    reserveBtn.innerHTML = `<i class="fa-solid fa-lock text-sm"></i><span>設備維護中 (暫不可借)</span>`;
+                    reserveBtn.disabled = true;
+                    reserveBtn.className = "px-5 py-2.5 bg-slate-100 text-slate-400 font-semibold rounded-xl text-sm cursor-not-allowed flex items-center gap-2";
+                } else {
+                    reserveBtn.innerHTML = `<i class="fa-solid fa-calendar-plus text-sm"></i><span>立即登記預約</span>`;
+                    reserveBtn.disabled = false;
+                    reserveBtn.className = "px-5 py-2.5 bg-sky-700 hover:bg-sky-800 text-white font-semibold rounded-xl text-sm shadow-md shadow-sky-700/20 flex items-center gap-2 transition-all active:scale-[0.98]";
+                }
+            }
+
+            const activeRes = window.reservations.filter(r => 
+                r.laptopId === laptopId && 
+                (r.status === 'approved' || r.status === 'pending' || r.status === 'active') &&
+                !window.isReservationExpired(r, today)
+            ).sort((a, b) => (a.startDate || '').localeCompare(b.startDate || ''));
+
+            const hasValidMaintenance = maintState && laptop.maintStartDate && laptop.maintEndDate && !window.isMaintenanceExpired(laptop, today);
+
+            let html = '';
+
+            if (hasValidMaintenance) {
+                const isUnderMaintenanceNow = (maintState === 'active_maintenance');
+                const maintStatusBadge = isUnderMaintenanceNow 
+                    ? `<span class="bg-rose-100 text-rose-800 text-xs sm:text-[13px] font-bold px-2.5 py-0.5 rounded-full border border-rose-200">現正維護中</span>`
+                    : `<span class="bg-amber-100 text-amber-800 text-xs sm:text-[13px] font-bold px-2.5 py-0.5 rounded-full border border-amber-200">預約維護</span>`;
+
+                html += `
+                    <div class="p-3.5 bg-amber-50/70 border border-amber-200/90 rounded-xl space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold text-amber-900 flex items-center gap-1.5">
+                                <i class="fa-solid fa-screwdriver-wrench text-amber-600"></i> 設備維護保養時段
+                            </span>
+                            ${maintStatusBadge}
+                        </div>
+                        <div class="bg-white/90 p-2.5 rounded-lg border border-amber-200/60 space-y-1.5 text-sm">
+                            <div class="flex items-center gap-1.5 font-mono">
+                                <span class="text-slate-700 font-sans shrink-0 font-medium">起訖期間：</span>
+                                <span class="font-bold text-slate-900">${escapeHtml(laptop.maintStartDate)} 至 ${escapeHtml(laptop.maintEndDate)}</span>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-slate-700 shrink-0 font-medium">維護原因：</span>
+                                <span class="font-semibold text-amber-950">${escapeHtml(laptop.maintReason || '定期年度保養檢修')}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (activeRes.length > 0) {
+                html += `
+                    <div class="space-y-2.5">
+                        <div class="text-sm font-bold text-slate-800 flex items-center justify-between px-0.5">
+                            <span class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-list-check text-sky-700"></i> 同仁預約借用排程 (共 ${activeRes.length} 筆)
+                            </span>
+                            <span class="text-xs sm:text-[13px] text-slate-500 font-normal">依借用日期排序</span>
+                        </div>
+                `;
+
+                activeRes.forEach(r => {
+                    let statusLabel = '';
+                    if (r.status === 'active') {
+                        statusLabel = `<span class="bg-sky-100 text-sky-800 border border-sky-200 text-xs sm:text-[13px] font-bold px-2 py-0.5 rounded-md inline-flex items-center gap-1"><i class="fa-solid fa-laptop-code text-xs"></i> 出借使用中</span>`;
+                    } else {
+                        statusLabel = `<span class="bg-indigo-100 text-indigo-800 border border-indigo-200 text-xs sm:text-[13px] font-bold px-2 py-0.5 rounded-md inline-flex items-center gap-1"><i class="fa-solid fa-hand-holding-hand text-xs"></i> 待領取 (已預約)</span>`;
+                    }
+
+                    const borrowerText = r.actualBorrowUserName 
+                        ? `${escapeHtml(r.userName)} (代領人: ${escapeHtml(r.actualBorrowUserName)})`
+                        : escapeHtml(r.userName || '-');
+
+                    html += `
+                        <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2 hover:border-slate-300 transition-colors">
+                            <div class="flex items-center justify-between">
+                                <div class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                    <span class="bg-white border border-slate-200 text-slate-700 text-xs font-semibold px-2 py-0.5 rounded">${escapeHtml(r.userDept || '未知科室')}</span>
+                                    <span>${borrowerText}</span>
+                                </div>
+                                ${statusLabel}
+                            </div>
+                            <div class="flex items-center gap-2 text-sm bg-white p-2 rounded-lg border border-slate-200/60 font-mono text-slate-800">
+                                <span class="flex items-center gap-1 text-slate-600 font-sans shrink-0 font-medium"><i class="fa-regular fa-calendar text-sky-700"></i> 借用期間：</span>
+                                <span class="font-bold text-slate-900">${escapeHtml(r.startDate)} ~ ${escapeHtml(r.endDate)}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `</div>`;
+            }
+
+            if (!hasValidMaintenance && activeRes.length === 0) {
+                html = `
+                    <div class="p-8 text-center text-slate-500 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
+                        <i class="fa-solid fa-calendar-xmark text-3xl text-slate-300"></i>
+                        <p class="text-sm font-semibold text-slate-700">本設備目前尚無任何進行中或預約排程</p>
+                        <p class="text-xs sm:text-[13px] text-slate-500">目前可隨時進行線上登記借用！</p>
+                    </div>
+                `;
+            }
+
+            if (contentEl) {
+                contentEl.innerHTML = html;
+            }
+
+            const modal = document.getElementById('deviceScheduleDetailModal');
+            if (modal) modal.classList.remove('hidden');
+        };
+
+        window.handleReserveFromScheduleModal = function() {
+            const laptopId = window.currentScheduleModalLaptopId;
+            if (!laptopId) return;
+
+            window.closeDeviceScheduleModal();
+            window.openReserveModal(laptopId);
+        };
+
+        window.closeDeviceScheduleModal = function() {
+            const modal = document.getElementById('deviceScheduleDetailModal');
+            if (modal) modal.classList.add('hidden');
+        };
+
+        // 項目 1：預約日期「即時衝突預檢」與動態提示
+        window.handleReserveDateInputChange = function() {
+            const laptopId = document.getElementById('formLaptopId')?.value;
+            const startDate = document.getElementById('formStartDate')?.value;
+            const endDate = document.getElementById('formEndDate')?.value;
+            const alertBox = document.getElementById('reserveInstantConflictAlert');
+            const alertMsg = document.getElementById('reserveInstantConflictMsg');
+            const submitBtn = document.getElementById('reserveSubmitBtn');
+            const startInput = document.getElementById('formStartDate');
+            const endInput = document.getElementById('formEndDate');
+
+            if (!startDate || !endDate || !laptopId) {
+                if (alertBox) alertBox.classList.add('hidden');
+                if (submitBtn) submitBtn.disabled = false;
+                if (startInput) startInput.classList.remove('border-rose-500', 'bg-rose-50/50');
+                if (endInput) endInput.classList.remove('border-rose-500', 'bg-rose-50/50');
+                return;
+            }
+
+            if (startDate > endDate) {
+                if (alertBox && alertMsg) {
+                    alertMsg.innerText = '預計歸還日期不得早於預約起始日期！';
+                    alertBox.classList.remove('hidden');
+                }
+                if (submitBtn) submitBtn.disabled = true;
+                if (endInput) endInput.classList.add('border-rose-500', 'bg-rose-50/50');
+                return;
+            }
+
+            const today = window.getTodayDateString();
+            const laptop = window.laptops.find(l => l.id === laptopId);
+
+            // 1. 維護時段衝突比對
+            const maintState = window.getLaptopMaintenanceState(laptop, today);
+            if (maintState && laptop?.maintStartDate && laptop?.maintEndDate) {
+                if (window.isDateOverlap(startDate, endDate, laptop.maintStartDate, laptop.maintEndDate)) {
+                    if (alertBox && alertMsg) {
+                        alertMsg.innerText = `此設備於 ${laptop.maintStartDate} 至 ${laptop.maintEndDate} 排定維護（${laptop.maintReason || '維護檢修'}），暫停預約！`;
+                        alertBox.classList.remove('hidden');
+                    }
+                    if (submitBtn) submitBtn.disabled = true;
+                    if (startInput) startInput.classList.add('border-rose-500', 'bg-rose-50/50');
+                    if (endInput) endInput.classList.add('border-rose-500', 'bg-rose-50/50');
+                    return;
+                }
+            }
+
+            // 2. 其他同仁預約時段衝突比對
+            const activeRes = window.reservations.filter(r => 
+                r.laptopId === laptopId && 
+                (r.status === 'approved' || r.status === 'pending' || r.status === 'active') &&
+                !window.isReservationExpired(r, today)
+            );
+
+            for (const r of activeRes) {
+                if (window.isDateOverlap(startDate, endDate, r.startDate, r.endDate)) {
+                    if (alertBox && alertMsg) {
+                        alertMsg.innerText = `該時段已由【${r.userDept} - ${r.userName}】登記借用 (${r.startDate} 至 ${r.endDate})！`;
+                        alertBox.classList.remove('hidden');
+                    }
+                    if (submitBtn) submitBtn.disabled = true;
+                    if (startInput) startInput.classList.add('border-rose-500', 'bg-rose-50/50');
+                    if (endInput) endInput.classList.add('border-rose-500', 'bg-rose-50/50');
+                    return;
+                }
+            }
+
+            // 無衝突：重設為正常可用狀態
+            if (alertBox) alertBox.classList.add('hidden');
+            if (submitBtn) submitBtn.disabled = false;
+            if (startInput) startInput.classList.remove('border-rose-500', 'bg-rose-50/50');
+            if (endInput) endInput.classList.remove('border-rose-500', 'bg-rose-50/50');
+        };
+
         window.handleStartDateChange = function(newStartDate) {
             const endDateEl = document.getElementById('formEndDate');
             if (!endDateEl || !newStartDate) return;
@@ -1285,22 +1769,25 @@
             if (!endDateEl.value || endDateEl.value < newStartDate) {
                 endDateEl.value = newStartDate;
             }
+            window.handleReserveDateInputChange();
         };
 
-        function getResStatusBadge(status) {
+        function getResStatusBadge(res) {
+            const status = res.status;
             switch (status) {
                 case 'pending':
                 case 'approved':
-                    return `<span class="bg-indigo-50 text-indigo-800 border border-indigo-200 text-[13px] font-semibold px-3 py-1 rounded-lg inline-flex items-center gap-1.5"><i class="fa-solid fa-hand-holding-hand text-indigo-600"></i> 待領取 (預約已成立)</span>`;
+                    return `<span class="bg-indigo-50 text-indigo-800 border border-indigo-200 text-sm font-semibold px-3 py-1 rounded-lg inline-flex items-center gap-1.5"><i class="fa-solid fa-hand-holding-hand text-indigo-600"></i> 待領取 (預約已成立)</span>`;
                 case 'active':
-                    return `<span class="bg-sky-50 text-sky-800 border border-sky-200 text-[13px] font-semibold px-3 py-1 rounded-lg inline-flex items-center gap-1.5"><i class="fa-solid fa-laptop-code text-sky-600"></i> 出借使用中</span>`;
+                    return `<span class="bg-sky-50 text-sky-800 border border-sky-200 text-sm font-semibold px-3 py-1 rounded-lg inline-flex items-center gap-1.5"><i class="fa-solid fa-laptop-code text-sky-600"></i> 出借使用中</span>`;
                 case 'completed':
-                    return `<span class="bg-emerald-50 text-emerald-800 border border-emerald-200 text-[13px] font-semibold px-3 py-1 rounded-lg inline-flex items-center gap-1.5"><i class="fa-solid fa-box-archive text-emerald-600"></i> 已歸還結案</span>`;
+                    return `<span class="bg-emerald-50 text-emerald-800 border border-emerald-200 text-sm font-semibold px-3 py-1 rounded-lg inline-flex items-center gap-1.5"><i class="fa-solid fa-box-archive text-emerald-600"></i> 已歸還結案</span>`;
                 case 'cancelled':
                 case 'rejected':
-                    return `<span class="bg-slate-100 text-slate-600 border border-slate-200 text-[13px] font-semibold px-3 py-1 rounded-lg inline-flex items-center gap-1.5">${escapeHtml(status)}</span>`;
+                    const reasonText = res.cancelReason ? `已取消 (${escapeHtml(res.cancelReason)})` : '已取消預約';
+                    return `<span class="bg-slate-100 text-slate-700 border border-slate-300 text-sm font-semibold px-3 py-1 rounded-lg inline-flex items-center gap-1.5"><i class="fa-solid fa-ban text-slate-500"></i> ${reasonText}</span>`;
                 default:
-                    return `<span class="bg-slate-100 text-slate-700 border border-slate-200 text-[13px] font-semibold px-3 py-1 rounded-lg inline-flex items-center gap-1.5">${escapeHtml(status)}</span>`;
+                    return `<span class="bg-slate-100 text-slate-700 border border-slate-300 text-sm font-semibold px-3 py-1 rounded-lg inline-flex items-center gap-1.5">${escapeHtml(status)}</span>`;
             }
         }
 
@@ -1311,7 +1798,7 @@
                         <button type="button" onclick="markAsPickedUp('${res.id}', '${res.laptopId}')" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold text-sm shadow-xs transition-colors flex items-center gap-1.5">
                             <i class="fa-solid fa-hand-holding"></i> 辦理出借領取
                         </button>
-                        <button type="button" onclick="cancelReservation('${res.id}')" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg font-semibold text-sm transition-colors flex items-center gap-1">
+                        <button type="button" onclick="cancelReservation('${res.id}')" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-semibold text-sm transition-colors flex items-center gap-1">
                             <i class="fa-solid fa-xmark"></i> 取消預約
                         </button>
                     </div>
@@ -1323,11 +1810,10 @@
                     </button>
                 `;
             } else {
-                return `<span class="text-sm text-slate-400 font-medium">流程已結束</span>`;
+                return `<span class="text-sm text-slate-500 font-medium">流程已結束</span>`;
             }
         }
 
-        // ==================== Export Excel Feature (Admin Only) ====================
         window.getExportData = function() {
             const filtered = window.getFilteredReservations();
 
@@ -1340,7 +1826,7 @@
                 if (r.status === 'approved' || r.status === 'pending') statusText = '待領取 (已預約)';
                 else if (r.status === 'active') statusText = '出借使用中';
                 else if (r.status === 'completed') statusText = '已歸還結案';
-                else if (r.status === 'cancelled') statusText = '已取消預約';
+                else if (r.status === 'cancelled') statusText = r.cancelReason ? `已取消 (${r.cancelReason})` : '已取消預約';
 
                 const dispatchedTimeStr = r.dispatchedAt ? window.formatDateTimeNoSeconds(r.dispatchedAt) : '-';
                 const returnedTimeStr = r.returnedAt ? window.formatDateTimeNoSeconds(r.returnedAt) : '-';
@@ -1379,7 +1865,7 @@
                 return;
             }
 
-            const fileName = `公務資訊設備預約紀錄_${new Date().toISOString().split('T')[0]}.xlsx`;
+            const fileName = `公務資訊設備預約紀錄_${window.getTodayDateString()}.xlsx`;
 
             if (typeof XLSX !== 'undefined') {
                 const worksheet = XLSX.utils.json_to_sheet(data);
@@ -1411,7 +1897,6 @@
             }
         };
 
-        // ==================== Official Document Sheet Feature (共用-4-0150 Word) ====================
         window.generateWordDocumentHTML = function(isForWordExport = false) {
             const allFiltered = window.getFilteredReservations();
             const filtered = allFiltered.filter(r => r.status === 'active' || r.status === 'completed');
@@ -1423,7 +1908,6 @@
                 const devCat = matchedLap?.category || '筆電';
 
                 const borrowDate = r.startDate || '';
-                // 優先採用實際領取人員姓名，若未特別指定則採用原預約申請人
                 const borrowPerson = r.actualBorrowUserName || r.userName || '';
                 const borrowUnitPerson = (r.userDept || '') + (borrowPerson ? ` / ${borrowPerson}` : '');
                 const returnDate = r.status === 'completed' 
@@ -1445,7 +1929,6 @@
                 `;
             });
 
-            // 為確保未超過 8 筆時絕對維持在 A4 橫向單一頁內（不溢出到第二頁），基準行數設定為 8 行
             const blankCount = Math.max(0, 8 - filtered.length);
             for (let i = 0; i < blankCount; i++) {
                 rowsHtml += `
@@ -1467,7 +1950,6 @@
                 <div style="font-family:'標楷體', 'DFKai-SB', '微軟正黑體', 'Microsoft JhengHei', serif; color:#000; width:100%; box-sizing:border-box;">
                     <!-- 1. 頁首外框：雙層表格結構，圖檔與文字置中排列，完全貼合公文格式 -->
                     <table style="width:100%; border-collapse:collapse; margin-bottom:4px; mso-table-layout-alt:fixed; border:1.5pt solid #000000;">
-                        <!-- 上層：LOGO 圖檔與中英文全銜整組置中 -->
                         <tr>
                             <td colspan="2" style="border:1.5pt solid #000000; text-align:center; vertical-align:middle; padding:6px 4px;">
                                 <table style="display:inline-table; margin:0 auto; border-collapse:collapse; vertical-align:middle;">
@@ -1493,7 +1975,6 @@
                                 </table>
                             </td>
                         </tr>
-                        <!-- 下層：表單中文名稱置中，上方保有 1.5pt 實體橫線，中文字體 18.0pt 不粗體 -->
                         <tr>
                             <td colspan="2" style="border:1.5pt solid #000000; text-align:center; padding:5px 0; font-size:18.0pt; font-weight:normal; letter-spacing:10px; font-family:'標楷體', 'DFKai-SB', serif;">
                                 資 訊 設 備 借 出 登 記 表
@@ -1566,7 +2047,7 @@
 
         window.downloadWordDoc = function() {
             const contentHtml = window.generateWordDocumentHTML(true);
-            const todayStr = new Date().toISOString().split('T')[0];
+            const todayStr = window.getTodayDateString();
             const fileName = `共用-4-0150-資訊設備借出登記表_${todayStr}.doc`;
 
             const fullWordHtml = `
@@ -1684,7 +2165,6 @@
                 window.refreshAllViews();
 
                 const appId = window.getAppId();
-                // 優先使用使用者於 window.userFirebaseConfig 填入的金鑰，若無則讀取系統預設配置
                 let firebaseConfig = window.userFirebaseConfig;
                 if (!firebaseConfig && typeof __firebase_config !== 'undefined' && __firebase_config) {
                     try {
@@ -1743,7 +2223,7 @@
                     });
 
                     const laptopsCol = collection(window.db, 'artifacts', appId, 'public', 'data', 'laptops_v13');
-                    onSnapshot(laptopsCol, (snapshot) => {
+                    onSnapshot(laptopsCol, async (snapshot) => {
                         const cloudLaptops = [];
                         snapshot.forEach(docSnap => {
                             cloudLaptops.push({ id: docSnap.id, ...docSnap.data() });
@@ -1761,6 +2241,7 @@
                         }
                         window.laptops.sort((a, b) => a.id.localeCompare(b.id));
                         localStorage.setItem('cht_laptops_v13', JSON.stringify(window.laptops));
+                        await window.autoExpireScheduledMaintenance();
                         updateSyncUI(true, "雲端即時同步中");
                         window.refreshAllViews();
                     }, (error) => {
@@ -1769,7 +2250,7 @@
                     });
 
                     const resCol = collection(window.db, 'artifacts', appId, 'public', 'data', 'reservations_v13');
-                    onSnapshot(resCol, (snapshot) => {
+                    onSnapshot(resCol, async (snapshot) => {
                         const cloudRes = [];
                         snapshot.forEach(docSnap => {
                             cloudRes.push({ id: docSnap.id, ...docSnap.data() });
@@ -1778,6 +2259,7 @@
                         window.reservations = cloudRes;
                         window.reservations.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
                         localStorage.setItem('cht_reservations_v13', JSON.stringify(window.reservations));
+                        await window.autoExpirePendingReservations();
                         updateSyncUI(true, "雲端即時同步中");
                         window.refreshAllViews();
                     }, (error) => {
@@ -1886,16 +2368,16 @@
             if (!listEl) return;
 
             if (window.customCategories.length === 0) {
-                listEl.innerHTML = `<span class="text-sm text-slate-400">目前尚無自訂類別</span>`;
+                listEl.innerHTML = `<span class="text-sm text-slate-500">目前尚無自訂類別</span>`;
                 return;
             }
 
             listEl.innerHTML = window.customCategories.map(cat => {
                 const count = window.laptops.filter(l => (l.category || '筆電') === cat).length;
                 return `
-                    <div class="inline-flex items-center gap-2 bg-slate-100 border border-slate-200 text-slate-800 text-sm font-semibold px-3.5 py-1.5 rounded-xl">
+                    <div class="inline-flex items-center gap-2 bg-slate-100 border border-slate-300 text-slate-800 text-sm font-semibold px-3.5 py-1.5 rounded-xl">
                         <span>${escapeHtml(cat)} <span class="text-sky-700 font-bold tabular-nums">(${count})</span></span>
-                        <button type="button" onclick="handleDeleteCategory('${escapeHtml(cat)}')" class="text-slate-400 hover:text-rose-600 ml-1 transition-colors" title="刪除類別">
+                        <button type="button" onclick="handleDeleteCategory('${escapeHtml(cat)}')" class="text-slate-500 hover:text-rose-600 ml-1 transition-colors" title="刪除類別">
                             <i class="fa-solid fa-xmark text-sm"></i>
                         </button>
                     </div>
@@ -1972,7 +2454,7 @@
             if (!listEl) return;
 
             if (window.adminUsers.length === 0) {
-                listEl.innerHTML = `<div class="text-[13px] text-slate-400 py-2">尚未新增管理者</div>`;
+                listEl.innerHTML = `<div class="text-sm text-slate-500 py-2">尚未新增管理者</div>`;
                 return;
             }
 
@@ -1983,15 +2465,15 @@
                     <div class="flex items-center gap-2">
                         <i class="fa-solid ${isSelf ? 'fa-user-lock text-emerald-600' : 'fa-user-check text-sky-700'} text-base"></i>
                         <span class="font-semibold text-slate-800">${escapeHtml(admin.name)}</span>
-                        ${isSelf ? '<span class="bg-emerald-100 text-emerald-800 text-[12px] font-semibold px-2 py-0.5 rounded-full border border-emerald-200"><i class="fa-solid fa-shield-halved"></i> 當前登入中</span>' : ''}
+                        ${isSelf ? '<span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-0.5 rounded-full border border-emerald-200"><i class="fa-solid fa-shield-halved"></i> 當前登入中</span>' : ''}
                     </div>
                     ${isSelf ? `
-                        <span class="text-[13px] text-slate-400 font-medium bg-slate-200/60 px-2 py-1 rounded cursor-not-allowed">保護中</span>
+                        <span class="text-sm text-slate-500 font-medium bg-slate-200/60 px-2 py-1 rounded cursor-not-allowed">保護中</span>
                     ` : window.adminUsers.length > 1 ? `
-                        <button type="button" onclick="deleteAdminUser('${admin.id}')" class="text-slate-400 hover:text-red-600 p-1 transition-colors" title="移除此管理者">
+                        <button type="button" onclick="deleteAdminUser('${admin.id}')" class="text-slate-500 hover:text-red-600 p-1 transition-colors" title="移除此管理者">
                             <i class="fa-solid fa-trash-can text-sm"></i>
                         </button>
-                    ` : '<span class="text-[13px] text-slate-400">主要管理者</span>'}
+                    ` : '<span class="text-sm text-slate-500">主要管理者</span>'}
                 </div>
             `;
             }).join('');
@@ -2008,15 +2490,15 @@
                 panel.classList.remove('hidden');
                 if (chevron) chevron.style.transform = 'rotate(180deg)';
                 if (toggleBtn) {
-                    toggleBtn.classList.add('bg-sky-50', 'border-sky-200', 'text-sky-800');
-                    toggleBtn.classList.remove('bg-slate-50', 'border-slate-200', 'text-slate-700');
+                    toggleBtn.classList.add('bg-sky-50', 'border-sky-300', 'text-sky-800');
+                    toggleBtn.classList.remove('bg-slate-50', 'border-slate-300', 'text-slate-700');
                 }
             } else {
                 panel.classList.add('hidden');
                 if (chevron) chevron.style.transform = 'rotate(0deg)';
                 if (toggleBtn) {
-                    toggleBtn.classList.remove('bg-sky-50', 'border-sky-200', 'text-sky-800');
-                    toggleBtn.classList.add('bg-slate-50', 'border-slate-200', 'text-slate-700');
+                    toggleBtn.classList.remove('bg-sky-50', 'border-sky-300', 'text-sky-800');
+                    toggleBtn.classList.add('bg-slate-50', 'border-slate-300', 'text-slate-700');
                 }
             }
         };
@@ -2052,7 +2534,6 @@
             const userQuery = (document.getElementById('filterResUserName')?.value || '').trim().toLowerCase();
             const deptVal = document.getElementById('filterResDept')?.value || 'ALL';
             const dateQuery = document.getElementById('filterResDate')?.value || '';
-
             const effectiveStatus = window.currentResFilter || 'ALL';
 
             return window.reservations.filter(res => {
@@ -2164,7 +2645,7 @@
             window.resCurrentPage = 1;
 
             document.querySelectorAll('.res-filter-btn').forEach(btn => {
-                btn.className = "res-filter-btn px-4 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:bg-slate-200/60 transition-all";
+                btn.className = "res-filter-btn px-4 py-2 text-sm font-semibold rounded-lg text-slate-700 hover:bg-slate-200/70 transition-all";
             });
             const activeBtn = document.getElementById('resFilter' + status);
             if (activeBtn) {
@@ -2184,7 +2665,6 @@
         };
 
         window.switchTab = function(tabKey) {
-            // 權限防護：若非管理者，強制導回 laptops 頁面
             if ((tabKey === 'admin' || tabKey === 'reservations') && !window.isAdmin) {
                 tabKey = 'laptops';
             }
@@ -2239,6 +2719,8 @@
                 renderReservations();
             } else if (tabKey === 'admin') {
                 if (viewAdmin) viewAdmin.classList.remove('hidden');
+                renderAdminCategoryFilterOptions();
+                renderAdminDeviceCodeFilterOptions();
                 renderAdminLaptops();
             }
         };
@@ -2276,10 +2758,10 @@
             if (totalCount === 0 || pageRecords.length === 0) {
                 tableBody.innerHTML = `
                     <tr>
-                        <td colspan="5" class="p-8 text-center text-slate-400 font-medium bg-white">
+                        <td colspan="5" class="p-8 text-center text-slate-500 font-medium bg-white">
                             <i class="fa-solid fa-inbox text-3xl mb-2 text-slate-300 block"></i>
-                            <p class="mb-3 text-slate-500">目前無符合篩選條件的公務設備預約紀錄</p>
-                            <button type="button" onclick="resetReservationFilters()" class="inline-flex items-center gap-1.5 px-4 py-2 bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 rounded-xl font-semibold text-[13px] transition-colors">
+                            <p class="mb-3 text-slate-600 font-semibold">目前無符合篩選條件的公務設備預約紀錄</p>
+                            <button type="button" onclick="resetReservationFilters()" class="inline-flex items-center gap-1.5 px-4 py-2 bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 rounded-xl font-semibold text-sm transition-colors">
                                 <i class="fa-solid fa-rotate-left"></i> 清除預約篩選條件
                             </button>
                         </td>
@@ -2296,8 +2778,8 @@
                         const timeStr = res.dispatchedAt ? window.formatDateTimeNoSeconds(res.dispatchedAt) : '';
                         const receiverStr = res.actualBorrowUserName ? ` (領取人: ${escapeHtml(res.actualBorrowUserName)})` : '';
                         auditLogsHtml += `
-                            <div class="text-[13px] text-indigo-700 font-medium mt-1">
-                                • 交付領用：<span class="font-semibold">${escapeHtml(res.dispatchedByName)}</span>${receiverStr} <span class="text-slate-500 font-mono text-[12px]">(${timeStr})</span>
+                            <div class="text-sm text-indigo-800 font-medium mt-1">
+                                • 交付領用：<span class="font-bold">${escapeHtml(res.dispatchedByName)}</span>${receiverStr} <span class="text-slate-600 font-mono text-[13px]">(${timeStr})</span>
                             </div>
                         `;
                     }
@@ -2305,33 +2787,33 @@
                         const timeStr = res.returnedAt ? window.formatDateTimeNoSeconds(res.returnedAt) : '';
                         const returnerStr = res.actualReturnUserName ? ` (歸還人: ${escapeHtml(res.actualReturnUserName)})` : '';
                         auditLogsHtml += `
-                            <div class="text-[13px] text-emerald-700 font-medium mt-0.5">
-                                • 點收歸還：<span class="font-semibold">${escapeHtml(res.returnedByName)}</span>${returnerStr} <span class="text-slate-500 font-mono text-[12px]">(${timeStr})</span>
+                            <div class="text-sm text-emerald-800 font-medium mt-0.5">
+                                • 點收歸還：<span class="font-bold">${escapeHtml(res.returnedByName)}</span>${returnerStr} <span class="text-slate-600 font-mono text-[13px]">(${timeStr})</span>
                             </div>
                         `;
                     }
                     if (!auditLogsHtml) {
-                        auditLogsHtml = `<div class="text-[13px] text-slate-400 mt-1">尚未出借領取</div>`;
+                        auditLogsHtml = `<div class="text-sm text-slate-500 mt-1">尚未出借領取</div>`;
                     }
 
                     const createdTimeStr = res.createdAt ? window.formatDateTimeNoSeconds(res.createdAt) : '';
 
                     return `
-                        <tr class="hover:bg-slate-50/70 transition-colors">
+                        <tr class="hover:bg-slate-50/80 transition-colors">
                             <td class="p-4 sm:p-5">
-                                <span class="bg-sky-50 text-sky-800 border border-sky-100 text-[12px] font-semibold px-2 py-0.5 rounded-md inline-block mb-1">${escapeHtml(category)}</span>
+                                <span class="bg-sky-50 text-sky-800 border border-sky-100 text-xs font-semibold px-2 py-0.5 rounded-md inline-block mb-1">${escapeHtml(category)}</span>
                                 <div class="font-bold text-slate-900 font-mono text-base tracking-normal">${escapeHtml(devCode)}</div>
                             </td>
                             <td class="p-4 sm:p-5">
-                                <div class="font-semibold text-slate-900">${escapeHtml(res.userName || '未提供')}</div>
-                                <div class="text-[13px] font-medium text-sky-800 mt-0.5">${escapeHtml(res.userDept || '未知科室')}</div>
+                                <div class="font-bold text-slate-900 text-sm">${escapeHtml(res.userName || '未提供')}</div>
+                                <div class="text-sm font-semibold text-sky-800 mt-0.5">${escapeHtml(res.userDept || '未知科室')}</div>
                             </td>
                             <td class="p-4 sm:p-5">
-                                <div class="font-medium font-mono tabular-nums text-slate-800">${escapeHtml(res.startDate || '-')} 至 ${escapeHtml(res.endDate || '-')}</div>
-                                <div class="text-[12px] font-mono text-slate-500 mt-0.5">申請時間: ${createdTimeStr}</div>
+                                <div class="font-semibold font-mono tabular-nums text-slate-900 text-sm">${escapeHtml(res.startDate || '-')} 至 ${escapeHtml(res.endDate || '-')}</div>
+                                <div class="text-xs sm:text-[13px] font-mono text-slate-600 mt-0.5">申請時間: ${createdTimeStr}</div>
                             </td>
                             <td class="p-4 sm:p-5">
-                                <div>${getResStatusBadge(res.status)}</div>
+                                <div>${getResStatusBadge(res)}</div>
                                 ${auditLogsHtml}
                             </td>
                             <td class="p-4 sm:p-5 text-right">
@@ -2359,7 +2841,7 @@
                 for (let p = 1; p <= totalPages; p++) {
                     const isActive = p === window.resCurrentPage;
                     pageBtnsHtml += `
-                        <button type="button" onclick="goToResPage(${p})" class="w-8 h-8 rounded-lg text-sm font-semibold transition-colors font-mono tabular-nums ${isActive ? 'bg-sky-700 text-white' : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'}">
+                        <button type="button" onclick="goToResPage(${p})" class="w-8 h-8 rounded-lg text-sm font-semibold transition-colors font-mono tabular-nums ${isActive ? 'bg-sky-700 text-white' : 'bg-white border border-slate-300 text-slate-700 hover:bg-slate-100'}">
                             ${p}
                         </button>
                     `;
@@ -2374,44 +2856,112 @@
             const listEl = document.getElementById('adminLaptopList');
             if (!listEl) return;
 
-            if (window.laptops.length === 0) {
-                listEl.innerHTML = `<div class="p-6 text-center text-slate-400 bg-slate-50 rounded-xl text-sm font-medium">目前無任何設備資料</div>`;
+            const categoryVal = document.getElementById('adminCategoryFilter')?.value || 'ALL';
+            const statusVal = document.getElementById('adminStatusFilter')?.value || 'ALL';
+            const selectedCode = document.getElementById('adminDeviceCodeFilter')?.value || 'ALL';
+            const today = window.getTodayDateString();
+
+            const filtered = window.laptops.filter(laptop => {
+                const cat = laptop.category || '筆電';
+                const code = laptop.code || laptop.id;
+
+                const approvedReservations = window.reservations.filter(r => 
+                    r.laptopId === laptop.id && 
+                    (r.status === 'approved' || r.status === 'pending') &&
+                    !window.isReservationExpired(r, today)
+                );
+                const approvedCount = approvedReservations.length;
+
+                const maintState = window.getLaptopMaintenanceState(laptop, today);
+                const isUnderMaintenanceNow = (maintState === 'active_maintenance');
+                const isScheduledMaintenance = (maintState === 'scheduled_maintenance');
+
+                const effectiveStatus = isUnderMaintenanceNow 
+                    ? 'maintenance' 
+                    : (laptop.status === 'borrowed' 
+                        ? 'borrowed' 
+                        : (approvedCount > 0 ? 'approved' : 'available'));
+
+                if (categoryVal !== 'ALL' && cat !== categoryVal) return false;
+
+                if (statusVal !== 'ALL') {
+                    if (statusVal === 'approved') {
+                        if (effectiveStatus !== 'approved') return false;
+                    } else if (statusVal === 'maintenance') {
+                        if (effectiveStatus !== 'maintenance') return false;
+                    } else if (statusVal === 'borrowed') {
+                        if (effectiveStatus !== 'borrowed') return false;
+                    } else if (statusVal === 'available') {
+                        if (effectiveStatus !== 'available') return false;
+                    }
+                }
+
+                if (selectedCode !== 'ALL' && laptop.id !== selectedCode && code !== selectedCode) return false;
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                listEl.innerHTML = `
+                    <div class="p-6 text-center text-slate-600 bg-slate-50 rounded-xl text-sm font-medium border border-slate-200">
+                        <i class="fa-solid fa-magnifying-glass text-2xl mb-2 text-slate-300 block"></i>
+                        <p class="mb-2">沒有找到符合篩選條件的公務設備</p>
+                        <button type="button" onclick="resetAdminEquipmentFilters()" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 rounded-lg text-sm font-semibold transition-colors">
+                            <i class="fa-solid fa-rotate-left"></i> 清除篩選條件
+                        </button>
+                    </div>
+                `;
                 return;
             }
 
-            const now = new Date();
-            const tzOffset = now.getTimezoneOffset() * 60000;
-            const today = (new Date(now.getTime() - tzOffset)).toISOString().split('T')[0];
-
-            listEl.innerHTML = window.laptops.map(laptop => {
+            listEl.innerHTML = filtered.map(laptop => {
                 const code = laptop.code || laptop.id;
                 const cat = laptop.category || '筆電';
 
-                const hasMaintSchedule = !!(laptop.maintStartDate && laptop.maintEndDate && typeof laptop.maintStartDate === 'string' && typeof laptop.maintEndDate === 'string');
-                const isDuringMaint = hasMaintSchedule && (today >= laptop.maintStartDate && today <= laptop.maintEndDate);
-                const isMaintenanceNow = laptop.status === 'maintenance' || isDuringMaint;
+                const approvedReservations = window.reservations.filter(r => 
+                    r.laptopId === laptop.id && 
+                    (r.status === 'approved' || r.status === 'pending') &&
+                    !window.isReservationExpired(r, today)
+                );
+                const approvedCount = approvedReservations.length;
+
+                const maintState = window.getLaptopMaintenanceState(laptop, today);
+                const isUnderMaintenanceNow = (maintState === 'active_maintenance');
+                const isScheduledMaintenance = (maintState === 'scheduled_maintenance');
 
                 let statusBadge = '';
-                if (isMaintenanceNow) {
-                    const dateNote = hasMaintSchedule ? ` (${window.formatShortDate(laptop.maintStartDate)}~${window.formatShortDate(laptop.maintEndDate)})` : '';
-                    statusBadge = `<span class="bg-rose-50 text-rose-700 border border-rose-200 text-[13px] font-semibold px-2.5 py-0.5 rounded-lg">維護中${dateNote}</span>`;
+                let extraResInfo = '';
+
+                if (isUnderMaintenanceNow) {
+                    const hasDates = laptop.maintStartDate && laptop.maintEndDate;
+                    const dateNote = hasDates ? ` (${window.formatShortDate(laptop.maintStartDate)}~${window.formatShortDate(laptop.maintEndDate)})` : '';
+                    statusBadge = `<span class="bg-rose-50 text-rose-700 border border-rose-200 text-sm font-semibold px-2.5 py-0.5 rounded-lg inline-flex items-center gap-1"><i class="fa-solid fa-screwdriver-wrench text-rose-600 text-xs"></i> 維護中${dateNote}</span>`;
                 } else if (laptop.status === 'borrowed') {
-                    statusBadge = `<span class="bg-sky-50 text-sky-700 border border-sky-200 text-[13px] font-semibold px-2.5 py-0.5 rounded-lg">出借使用中</span>`;
-                } else if (hasMaintSchedule) {
-                    statusBadge = `<span class="bg-amber-50 text-amber-700 border border-amber-200 text-[13px] font-semibold px-2.5 py-0.5 rounded-lg">預約維護中 (${window.formatShortDate(laptop.maintStartDate)}~${window.formatShortDate(laptop.maintEndDate)})</span>`;
+                    statusBadge = `<span class="bg-sky-50 text-sky-700 border border-sky-200 text-sm font-semibold px-2.5 py-0.5 rounded-lg inline-flex items-center gap-1"><i class="fa-solid fa-laptop-code text-sky-600 text-xs"></i> 出借使用中</span>`;
+                } else if (approvedCount > 0) {
+                    const countNote = approvedCount > 1 ? ` (${approvedCount}筆)` : '';
+                    statusBadge = `<span class="bg-indigo-50 text-indigo-700 border border-indigo-200 text-sm font-semibold px-2.5 py-0.5 rounded-lg inline-flex items-center gap-1"><i class="fa-solid fa-hand-holding-hand text-indigo-600 text-xs"></i> 待領取 (已預約${countNote})</span>`;
+                    
+                    const firstRes = approvedReservations[0];
+                    const sShort = window.formatShortDate(firstRes.startDate);
+                    const eShort = window.formatShortDate(firstRes.endDate);
+                    const dateRangeStr = (sShort || eShort) ? ` (${sShort}~${eShort})` : '';
+                    extraResInfo = `<span class="text-xs sm:text-[13px] text-indigo-900 font-semibold bg-indigo-50/80 border border-indigo-200 px-2 py-0.5 rounded-md inline-flex items-center gap-1"><i class="fa-solid fa-calendar-day text-indigo-500"></i>${escapeHtml(firstRes.userDept || '')} ${escapeHtml(firstRes.userName || '')}${dateRangeStr}</span>`;
+                } else if (isScheduledMaintenance) {
+                    statusBadge = `<span class="bg-amber-50 text-amber-700 border border-amber-200 text-sm font-semibold px-2.5 py-0.5 rounded-lg inline-flex items-center gap-1"><i class="fa-solid fa-wrench text-amber-600 text-xs"></i> 預約維護中 (${window.formatShortDate(laptop.maintStartDate)}~${window.formatShortDate(laptop.maintEndDate)})</span>`;
                 } else {
-                    statusBadge = `<span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[13px] font-semibold px-2.5 py-0.5 rounded-lg">可借用</span>`;
+                    statusBadge = `<span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-sm font-semibold px-2.5 py-0.5 rounded-lg inline-flex items-center gap-1"><i class="fa-solid fa-check text-emerald-600 text-xs"></i> 可借用</span>`;
                 }
 
                 return `
                     <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm">
                         <div class="flex items-center gap-3">
-                            <span class="bg-sky-100 text-sky-800 text-[13px] font-semibold px-2.5 py-0.5 rounded-md shrink-0">${escapeHtml(cat)}</span>
+                            <span class="bg-sky-100 text-sky-800 text-sm font-semibold px-2.5 py-0.5 rounded-md shrink-0">${escapeHtml(cat)}</span>
                             <div>
                                 <span class="font-bold text-slate-900 font-mono text-base">${escapeHtml(code)}</span>
-                                <div class="mt-1 flex items-center gap-2">
+                                <div class="mt-1 flex flex-wrap items-center gap-2">
                                     ${statusBadge}
-                                    ${laptop.maintReason ? `<span class="text-[13px] text-slate-500 font-normal">備註: ${escapeHtml(laptop.maintReason)}</span>` : ''}
+                                    ${extraResInfo}
+                                    ${(maintState && laptop.maintReason) ? `<span class="text-sm text-slate-600 font-medium">備註: ${escapeHtml(laptop.maintReason)}</span>` : ''}
                                 </div>
                             </div>
                         </div>
@@ -2547,27 +3097,28 @@
             if (targetInfo) {
                 targetInfo.innerHTML = `
                     <div class="flex items-center gap-2">
-                        <span class="bg-sky-100 text-sky-800 text-[13px] font-semibold px-2 py-0.5 rounded">${escapeHtml(laptop.category || '筆電')}</span>
+                        <span class="bg-sky-100 text-sky-800 text-sm font-semibold px-2 py-0.5 rounded">${escapeHtml(laptop.category || '筆電')}</span>
                         <span class="font-bold text-slate-900 font-mono text-base">${escapeHtml(laptop.code || laptop.id)}</span>
                     </div>
-                    <span class="text-sm text-slate-500 font-medium">當前設備</span>
+                    <span class="text-sm text-slate-600 font-semibold">當前設備</span>
                 `;
             }
 
-            const hasMaintSchedule = !!(laptop.maintStartDate && laptop.maintEndDate);
+            const today = window.getTodayDateString();
+            const maintState = window.getLaptopMaintenanceState(laptop, today);
+
             if (statusSelect) {
-                if (hasMaintSchedule) {
+                if (maintState === 'active_maintenance' || maintState === 'scheduled_maintenance') {
                     statusSelect.value = 'scheduled_maintenance';
-                } else if (laptop.status === 'maintenance') {
-                    statusSelect.value = 'maintenance';
                 } else {
                     statusSelect.value = 'available';
                 }
             }
 
-            if (startInput) startInput.value = laptop.maintStartDate || '';
-            if (endInput) endInput.value = laptop.maintEndDate || '';
-            if (reasonInput) reasonInput.value = laptop.maintReason || '';
+            const hasActiveOrFutureDates = maintState && laptop.maintStartDate && laptop.maintEndDate;
+            if (startInput) startInput.value = hasActiveOrFutureDates ? laptop.maintStartDate : today;
+            if (endInput) endInput.value = hasActiveOrFutureDates ? laptop.maintEndDate : today;
+            if (reasonInput) reasonInput.value = hasActiveOrFutureDates ? (laptop.maintReason || '') : '';
 
             window.toggleMaintenanceDateInputs();
 
@@ -2603,6 +3154,7 @@
 
             const statusSelect = document.getElementById('maintModalStatus');
             const chosenOption = statusSelect ? statusSelect.value : 'available';
+            const today = window.getTodayDateString();
 
             if (chosenOption === 'scheduled_maintenance') {
                 const sDate = document.getElementById('maintStartDate')?.value;
@@ -2618,15 +3170,20 @@
                     return false;
                 }
 
-                laptop.status = 'available';
                 laptop.maintStartDate = sDate;
                 laptop.maintEndDate = eDate;
                 laptop.maintReason = reason || '定期年度保養檢修';
-            } else if (chosenOption === 'maintenance') {
-                laptop.status = 'maintenance';
-                delete laptop.maintStartDate;
-                delete laptop.maintEndDate;
-                delete laptop.maintReason;
+
+                if (today > eDate) {
+                    laptop.status = 'available';
+                    delete laptop.maintStartDate;
+                    delete laptop.maintEndDate;
+                    delete laptop.maintReason;
+                } else if (today >= sDate && today <= eDate) {
+                    laptop.status = 'maintenance';
+                } else {
+                    laptop.status = 'available';
+                }
             } else {
                 laptop.status = 'available';
                 delete laptop.maintStartDate;
@@ -2677,13 +3234,12 @@
             showToast(`已清除設備【${laptop.code || laptop.id}】之維護排程`, 'info');
         };
 
+        // 項目 2：表單開啟時自動回填上次借用單位與姓名
         window.openReserveModal = function(laptopId) {
             const laptop = window.laptops.find(l => l.id === laptopId);
             if (!laptop) return;
 
-            const now = new Date();
-            const tzOffset = now.getTimezoneOffset() * 60000;
-            const today = (new Date(now.getTime() - tzOffset)).toISOString().split('T')[0];
+            const today = window.getTodayDateString();
 
             const formLaptopId = document.getElementById('formLaptopId');
             const formLaptopName = document.getElementById('formLaptopName');
@@ -2695,16 +3251,18 @@
             if (modalTarget) {
                 modalTarget.innerHTML = `
                     <div class="flex items-center gap-2">
-                        <span class="bg-sky-100 text-sky-800 text-[13px] font-semibold px-2 py-0.5 rounded">${escapeHtml(laptop.category || '筆電')}</span>
+                        <span class="bg-sky-100 text-sky-800 text-sm font-semibold px-2 py-0.5 rounded">${escapeHtml(laptop.category || '筆電')}</span>
                         <span class="font-bold text-slate-900 font-mono text-base">${escapeHtml(laptop.code || laptop.id)}</span>
                     </div>
-                    <span class="text-[13px] text-sky-800 font-semibold">預約目標設備</span>
+                    <span class="text-sm text-sky-800 font-semibold">預約目標設備</span>
                 `;
             }
 
             const maintBox = document.getElementById('maintenanceAlertBox');
             const maintText = document.getElementById('maintenanceAlertText');
-            if (laptop.maintStartDate && laptop.maintEndDate) {
+            
+            const maintState = window.getLaptopMaintenanceState(laptop, today);
+            if (maintState && laptop.maintStartDate && laptop.maintEndDate) {
                 if (maintText) maintText.innerText = `${laptop.maintStartDate} 至 ${laptop.maintEndDate} (${laptop.maintReason || '設備檢修保養'})`;
                 if (maintBox) maintBox.classList.remove('hidden');
             } else {
@@ -2715,7 +3273,8 @@
             const bookingsList = document.getElementById('existingBookingsList');
             const activeReservations = window.reservations.filter(r => 
                 r.laptopId === laptop.id && 
-                (r.status === 'approved' || r.status === 'pending' || r.status === 'active')
+                (r.status === 'approved' || r.status === 'pending' || r.status === 'active') &&
+                !window.isReservationExpired(r, today)
             );
 
             if (activeReservations.length > 0 && bookingsList) {
@@ -2740,8 +3299,36 @@
                 };
             }
 
+            // 項目 2：智慧回填上次的借用人姓名與所屬科室
+            const savedUserName = localStorage.getItem('cht_last_user_name') || '';
+            const savedUserDept = localStorage.getItem('cht_last_user_dept') || '';
             const userNameEl = document.getElementById('formUserName');
-            if (userNameEl) userNameEl.value = '';
+            const userDeptEl = document.getElementById('formUserDept');
+            const rememberNotice = document.getElementById('rememberUserNotice');
+
+            if (userNameEl) {
+                userNameEl.value = savedUserName;
+            }
+            if (userDeptEl && savedUserDept) {
+                userDeptEl.value = savedUserDept;
+            }
+
+            if (rememberNotice) {
+                if (savedUserName) {
+                    rememberNotice.classList.remove('hidden');
+                } else {
+                    rememberNotice.classList.add('hidden');
+                }
+            }
+
+            // 重設衝突提示與確認按鈕
+            const alertBox = document.getElementById('reserveInstantConflictAlert');
+            const submitBtn = document.getElementById('reserveSubmitBtn');
+            if (alertBox) alertBox.classList.add('hidden');
+            if (submitBtn) submitBtn.disabled = false;
+
+            // 即時預檢今日起訖日時段
+            window.handleReserveDateInputChange();
 
             const modal = document.getElementById('reserveModal');
             if (modal) modal.classList.remove('hidden');
@@ -2760,6 +3347,7 @@
             const userDept = document.getElementById('formUserDept')?.value;
             const startDate = document.getElementById('formStartDate')?.value;
             const endDate = document.getElementById('formEndDate')?.value;
+            const today = window.getTodayDateString();
 
             if (!userName || !startDate || !endDate) {
                 showToast('請完整填寫姓名與預約起訖日期！', 'warning');
@@ -2773,7 +3361,8 @@
 
             const laptop = window.laptops.find(l => l.id === laptopId);
 
-            if (laptop && laptop.maintStartDate && laptop.maintEndDate) {
+            const maintState = window.getLaptopMaintenanceState(laptop, today);
+            if (maintState && laptop.maintStartDate && laptop.maintEndDate) {
                 if (window.isDateOverlap(startDate, endDate, laptop.maintStartDate, laptop.maintEndDate)) {
                     showToast(`預約衝突：本設備排定於 ${laptop.maintStartDate} 至 ${laptop.maintEndDate} 進行維護，請避開此時段！`, 'error');
                     return false;
@@ -2782,7 +3371,8 @@
 
             const activeRes = window.reservations.filter(r => 
                 r.laptopId === laptopId && 
-                (r.status === 'approved' || r.status === 'pending' || r.status === 'active')
+                (r.status === 'approved' || r.status === 'pending' || r.status === 'active') &&
+                !window.isReservationExpired(r, today)
             );
 
             for (const r of activeRes) {
@@ -2791,6 +3381,12 @@
                     return false;
                 }
             }
+
+            // 項目 2：儲存本次同仁填寫的姓名與所屬單位至本地快取
+            try {
+                localStorage.setItem('cht_last_user_name', userName);
+                localStorage.setItem('cht_last_user_dept', userDept);
+            } catch(e) {}
 
             const newReservation = {
                 id: 'res_' + Date.now(),
@@ -2846,14 +3442,13 @@
                         <span class="font-bold text-slate-900 font-mono text-base">${escapeHtml(res.laptopName || res.laptopId)}</span>
                         <span class="text-xs text-indigo-800 font-semibold bg-indigo-100 px-2 py-0.5 rounded">借用手續</span>
                     </div>
-                    <div class="text-xs text-slate-600 mt-0.5">
+                    <div class="text-sm text-slate-600 mt-0.5">
                         原預約人：<b class="text-slate-800">${escapeHtml(res.userName)}</b> (${escapeHtml(res.userDept || '未知科室')})
                     </div>
                 `;
             }
 
             if (actualNameInput) {
-                // 預設為原借用人員姓名
                 actualNameInput.value = res.userName || '';
             }
 
@@ -2935,14 +3530,13 @@
                         <span class="font-bold text-slate-900 font-mono text-base">${escapeHtml(res.laptopName || res.laptopId)}</span>
                         <span class="text-xs text-emerald-800 font-semibold bg-emerald-100 px-2 py-0.5 rounded">點收歸還</span>
                     </div>
-                    <div class="text-xs text-slate-600 mt-0.5">
+                    <div class="text-sm text-slate-600 mt-0.5">
                         原領用人：<b class="text-slate-800">${escapeHtml(effectiveBorrower)}</b> (${escapeHtml(res.userDept || '未知科室')})
                     </div>
                 `;
             }
 
             if (returnNameInput) {
-                // 預設帶入實際領用人姓名（若有代理領用則帶入代領人，否則帶入原預約人）
                 returnNameInput.value = effectiveBorrower || '';
             }
 
@@ -3009,6 +3603,7 @@
 
             res.status = 'cancelled';
             res.cancelledAt = Date.now();
+            res.cancelReason = '手動取消預約';
 
             localStorage.setItem('cht_reservations_v13', JSON.stringify(window.reservations));
 
@@ -3233,8 +3828,7 @@
                 .replace(/&/g, '&amp;')
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#039;');
+                .replace(/"/g, '&#039;');
         }
 
         if (document.readyState === 'loading') {
