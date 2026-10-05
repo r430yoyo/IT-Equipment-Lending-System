@@ -241,8 +241,8 @@
                 </div>
             </div>
 
-            <!-- Laptops Grid Container -->
-            <div id="laptopGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+            <!-- Laptops Grid Container: 升級為自適應寬敞網格，防範狹窄擠壓 -->
+            <div id="laptopGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                 <!-- Dynamically rendered -->
             </div>
         </div>
@@ -981,15 +981,7 @@
         // 若您已依照手冊在 Firebase 建立好免費專案，請將專案設定貼在下方大括號中：
         // 若保持 null 或空值，系統將自動以「本機離線暫存模式 (localStorage)」穩定運作。
         // =========================================================================
-        window.userFirebaseConfig = {
-       apiKey: "AIzaSyBt3Nvo4GBKzpG2aUVYg9cB5B7HUEehthY",
-          authDomain: "it-equipment-lending-sys-fc74e.firebaseapp.com",
-          projectId: "it-equipment-lending-sys-fc74e",
-          storageBucket: "it-equipment-lending-sys-fc74e.firebasestorage.app",
-          messagingSenderId: "481340867051",
-          appId: "1:481340867051:web:242c94af63fee3faae19ae"
-
-   };
+        window.userFirebaseConfig = null;
 
         window.db = null;
         window.auth = null;
@@ -1383,16 +1375,20 @@
                 if (isUnderMaintenanceNow) {
                     const hasDates = laptop.maintStartDate && laptop.maintEndDate;
                     const maintDateInfo = hasDates ? ` (${window.formatShortDate(laptop.maintStartDate)}~${window.formatShortDate(laptop.maintEndDate)})` : '';
-                    statusBadge = `<span class="bg-slate-100 text-slate-700 border border-slate-300 text-sm font-semibold px-2.5 py-1 rounded-lg inline-flex items-center gap-1"><i class="fa-solid fa-screwdriver-wrench text-slate-600"></i> 維護中${maintDateInfo}</span>`;
+                    statusBadge = `<span class="bg-slate-100 text-slate-700 border border-slate-300 text-xs sm:text-[13px] font-semibold px-2.5 py-1 rounded-lg inline-flex items-center gap-1 shrink-0 whitespace-nowrap"><i class="fa-solid fa-screwdriver-wrench text-slate-600"></i> 維護中${maintDateInfo}</span>`;
                     isAvailable = false;
                 } else if (laptop.status === 'borrowed') {
-                    statusBadge = `<span class="bg-sky-100 text-sky-800 border border-sky-200 text-sm font-semibold px-2.5 py-1 rounded-lg inline-flex items-center gap-1"><i class="fa-solid fa-laptop-code text-sky-600"></i> 出借使用中</span>`;
+                    statusBadge = `<span class="bg-sky-50 text-sky-800 border border-sky-200 text-xs sm:text-[13px] font-semibold px-2.5 py-1 rounded-lg inline-flex items-center gap-1 shrink-0 whitespace-nowrap"><i class="fa-solid fa-laptop-code text-sky-600"></i> 出借使用中</span>`;
                     isAvailable = false;
                 } else if (approvedCount > 0) {
-                    statusBadge = `<span class="bg-indigo-100 text-indigo-800 border border-indigo-200 text-sm font-semibold px-2.5 py-1 rounded-lg inline-flex items-center gap-1"><i class="fa-solid fa-hand-holding-hand text-indigo-600"></i> 可借用 (已預約${approvedCount}筆)</span>`;
+                    // 方案 A：精確收斂狀態膠囊，加入數字徽章與防折行保護
+                    const countPill = approvedCount > 1 
+                        ? `<span class="bg-indigo-600 text-white text-[11px] px-1.5 py-0.2 rounded-full font-mono font-bold leading-tight ml-0.5">${approvedCount}</span>` 
+                        : `<span class="bg-indigo-600 text-white text-[11px] px-1.5 py-0.2 rounded-full font-mono font-bold leading-tight ml-0.5">1</span>`;
+                    statusBadge = `<span class="bg-indigo-50 text-indigo-800 border border-indigo-200 text-xs sm:text-[13px] font-bold px-2.5 py-1 rounded-lg inline-flex items-center gap-1.5 shrink-0 whitespace-nowrap"><span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span> 待領取 ${countPill}</span>`;
                     isAvailable = true;
                 } else {
-                    statusBadge = `<span class="bg-emerald-100 text-emerald-800 border border-emerald-200 text-sm font-semibold px-2.5 py-1 rounded-lg inline-flex items-center gap-1"><i class="fa-solid fa-circle-check text-emerald-600"></i> 可借用</span>`;
+                    statusBadge = `<span class="bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs sm:text-[13px] font-semibold px-2.5 py-1 rounded-lg inline-flex items-center gap-1 shrink-0 whitespace-nowrap"><i class="fa-solid fa-circle-check text-emerald-600"></i> 可借用</span>`;
                     isAvailable = true;
                 }
 
@@ -1402,18 +1398,21 @@
                     const latest = pendingList[0] || activeReservations[0];
                     const sShort = window.formatShortDate(latest.startDate);
                     const eShort = window.formatShortDate(latest.endDate);
-                    const dateRangeStr = (sShort || eShort) ? ` (${sShort}~${eShort})` : '';
-                    const moreBadge = activeReservations.length > 1 ? `<span class="text-xs bg-indigo-600 text-white px-1.5 py-0.5 rounded font-bold ml-1">+${activeReservations.length}筆</span>` : '';
+                    const dateRangeStr = (sShort || eShort) ? `${sShort}~${eShort}` : '';
+                    const moreBadge = activeReservations.length > 1 ? `<span class="text-[11px] bg-indigo-600 text-white px-1.5 py-0.2 rounded font-bold ml-1 shrink-0">+${activeReservations.length}</span>` : '';
+                    
+                    // 方案 A 最佳化排程條：科室、人名與日期結構化分離，日期不被截斷
                     approvedNotice = `
-                        <div onclick="openDeviceScheduleModal('${laptop.id}')" class="mt-2 text-sm font-medium text-indigo-900 bg-indigo-50/90 hover:bg-indigo-100 p-2.5 rounded-xl border border-indigo-200 flex items-center justify-between cursor-pointer transition-all shadow-xs group" title="點擊查看本設備所有預約與維護時段明細">
-                            <span class="flex items-center gap-1.5 truncate">
-                                <i class="fa-solid fa-calendar-day text-indigo-600 shrink-0 group-hover:scale-110 transition-transform"></i>
-                                <span class="truncate font-semibold">${escapeHtml(latest.userDept || '')} ${escapeHtml(latest.userName || '')}${dateRangeStr}</span>
-                            </span>
-                            <div class="flex items-center shrink-0 ml-1.5">
-                                <span class="text-xs sm:text-[13px] bg-indigo-200 text-indigo-950 px-2 py-0.5 rounded font-bold">已預約</span>
+                        <div onclick="openDeviceScheduleModal('${laptop.id}')" class="mt-2.5 text-xs sm:text-sm font-medium text-indigo-900 bg-indigo-50/80 hover:bg-indigo-100 p-2.5 rounded-xl border border-indigo-200 flex items-center justify-between cursor-pointer transition-all shadow-xs group" title="點擊查看本設備所有預約與維護時段明細">
+                            <div class="flex items-center gap-1.5 truncate pr-1">
+                                <span class="text-[12px] font-bold text-slate-700 bg-white px-1.5 py-0.5 rounded border border-indigo-100 shrink-0">${escapeHtml(latest.userDept || '綜規科')}</span>
+                                <span class="font-semibold text-slate-800 truncate">${escapeHtml(latest.userName || '')}</span>
+                                ${dateRangeStr ? `<span class="text-[12px] font-mono font-bold text-indigo-700 bg-indigo-100/70 px-1.5 py-0.5 rounded shrink-0">${dateRangeStr}</span>` : ''}
+                            </div>
+                            <div class="flex items-center shrink-0 ml-1">
+                                <span class="text-[11px] sm:text-xs bg-indigo-200 text-indigo-950 px-1.5 py-0.5 rounded font-bold">已預約</span>
                                 ${moreBadge}
-                                <i class="fa-solid fa-chevron-right text-xs text-indigo-500 ml-1 group-hover:translate-x-0.5 transition-transform"></i>
+                                <i class="fa-solid fa-chevron-right text-xs text-indigo-400 ml-1 group-hover:translate-x-0.5 transition-transform"></i>
                             </div>
                         </div>
                     `;
@@ -1422,10 +1421,10 @@
                 let maintNotice = '';
                 if (isScheduledMaintenance) {
                     maintNotice = `
-                        <div onclick="openDeviceScheduleModal('${laptop.id}')" class="mt-1.5 text-sm font-medium text-amber-900 bg-amber-50 hover:bg-amber-100 p-2.5 rounded-xl border border-amber-200 flex items-center justify-between cursor-pointer transition-all shadow-xs group font-mono" title="點擊查看本設備所有預約與維護時段明細">
+                        <div onclick="openDeviceScheduleModal('${laptop.id}')" class="mt-2 text-xs sm:text-sm font-medium text-amber-900 bg-amber-50 hover:bg-amber-100 p-2.5 rounded-xl border border-amber-200 flex items-center justify-between cursor-pointer transition-all shadow-xs group font-mono" title="點擊查看本設備所有預約與維護時段明細">
                             <div class="flex items-center gap-1.5 truncate">
                                 <i class="fa-solid fa-wrench text-amber-600 shrink-0 group-hover:scale-110 transition-transform"></i>
-                                <span class="truncate font-semibold">排定維護: ${escapeHtml(laptop.maintStartDate || '')} ~ ${escapeHtml(laptop.maintEndDate || '')}</span>
+                                <span class="truncate font-semibold text-xs sm:text-sm">排定維護: ${escapeHtml(laptop.maintStartDate || '')} ~ ${escapeHtml(laptop.maintEndDate || '')}</span>
                             </div>
                             <i class="fa-solid fa-chevron-right text-xs text-amber-500 ml-1 group-hover:translate-x-0.5 transition-transform"></i>
                         </div>
@@ -1435,8 +1434,9 @@
                 return `
                     <div class="bg-white rounded-2xl border ${approvedCount > 0 ? 'border-indigo-300 ring-2 ring-indigo-50' : 'border-slate-200/90'} p-5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
                         <div>
-                            <div class="flex items-center justify-between mb-3">
-                                <span class="bg-sky-50 text-sky-800 border border-sky-100 text-sm font-semibold px-2.5 py-0.5 rounded-md">${escapeHtml(cat)}</span>
+                            <!-- 頂部首列：類別與狀態防折行齊平排版 -->
+                            <div class="flex items-center justify-between mb-3 gap-2 overflow-hidden">
+                                <span class="bg-sky-50 text-sky-800 border border-sky-100 text-xs sm:text-[13px] font-semibold px-2.5 py-1 rounded-lg whitespace-nowrap shrink-0 max-w-[125px] sm:max-w-[145px] truncate" title="${escapeHtml(cat)}">${escapeHtml(cat)}</span>
                                 ${statusBadge}
                             </div>
                             <h3 class="text-2xl font-bold text-slate-900 font-mono tracking-normal my-2">${escapeHtml(code)}</h3>
