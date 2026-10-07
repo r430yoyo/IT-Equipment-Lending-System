@@ -299,7 +299,8 @@
                         </button>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+                    <!-- 升級為 6 欄自適應網格：正式拆分為起始日期與結束日期 -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3.5">
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1.5">設備類別</label>
                             <select id="filterResCategory" onchange="handleResCategoryChange()" class="w-full text-sm bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
@@ -346,8 +347,12 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">預約起訖日期</label>
-                            <input type="date" id="filterResDate" onchange="handleResFilterChange()" class="w-full text-sm bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 font-medium font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">預約起始日 (起)</label>
+                            <input type="date" id="filterResStartDate" onchange="handleResStartDateFilterChange()" class="w-full text-sm bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 font-medium font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1.5">預約結束日 (訖)</label>
+                            <input type="date" id="filterResEndDate" onchange="handleResEndDateFilterChange()" class="w-full text-sm bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 font-medium font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20">
                         </div>
                     </div>
                 </div>
@@ -981,15 +986,7 @@
         // 若您已依照手冊在 Firebase 建立好免費專案，請將專案設定貼在下方大括號中：
         // 若保持 null 或空值，系統將自動以「本機離線暫存模式 (localStorage)」穩定運作。
         // =========================================================================
-        window.userFirebaseConfig = {
-  apiKey: "AIzaSyBt3Nvo4GBKzpG2aUVYg9cB5B7HUEehthY",
-  authDomain: "it-equipment-lending-sys-fc74e.firebaseapp.com",
-  projectId: "it-equipment-lending-sys-fc74e",
-  storageBucket: "it-equipment-lending-sys-fc74e.firebasestorage.app",
-  messagingSenderId: "481340867051",
-  appId: "1:481340867051:web:242c94af63fee3faae19ae"
-};
-;
+        window.userFirebaseConfig = null;
 
         window.db = null;
         window.auth = null;
@@ -1244,6 +1241,68 @@
             const codeSelect = document.getElementById('deviceCodeFilter');
             if (codeSelect) codeSelect.value = 'ALL';
             filterLaptops();
+        };
+
+        // 渲染「預約紀錄管理」進階篩選之設備類別與設備代號下拉選項
+        window.renderResFilterOptions = function() {
+            const catSelect = document.getElementById('filterResCategory');
+            const devSelect = document.getElementById('filterResDevice');
+            if (!catSelect || !devSelect) return;
+
+            const selectedCat = catSelect.value || 'ALL';
+            const selectedDev = devSelect.value || 'ALL';
+
+            // 1. 類別選單動態載入
+            const categoriesSet = new Set([...window.customCategories]);
+            window.laptops.forEach(l => {
+                if (l.category) categoriesSet.add(l.category);
+            });
+
+            let catOptions = `<option value="ALL">全部類別</option>`;
+            categoriesSet.forEach(cat => {
+                const count = window.laptops.filter(l => (l.category || '筆電') === cat).length;
+                const isSelected = selectedCat === cat ? 'selected' : '';
+                catOptions += `<option value="${escapeHtml(cat)}" ${isSelected}>${escapeHtml(cat)} (${count})</option>`;
+            });
+            catSelect.innerHTML = catOptions;
+
+            // 2. 設備選單連動載入
+            let targetLaptops = window.laptops;
+            const currentCatVal = catSelect.value;
+            if (currentCatVal && currentCatVal !== 'ALL') {
+                targetLaptops = targetLaptops.filter(l => (l.category || '筆電') === currentCatVal);
+            }
+
+            let devOptions = `<option value="ALL">全部設備</option>`;
+            targetLaptops.forEach(lap => {
+                const code = lap.code || lap.id;
+                const isSelected = selectedDev === lap.id ? 'selected' : '';
+                devOptions += `<option value="${escapeHtml(lap.id)}" ${isSelected}>${escapeHtml(code)} (${escapeHtml(lap.category || '筆電')})</option>`;
+            });
+            devSelect.innerHTML = devOptions;
+        };
+
+        // 當使用者切換預約篩選面板的「設備類別」時，連動重繪「預約設備」下拉選項
+        window.handleResCategoryChange = function() {
+            const catSelect = document.getElementById('filterResCategory');
+            const devSelect = document.getElementById('filterResDevice');
+            if (!catSelect || !devSelect) return;
+
+            const selectedCat = catSelect.value;
+            let targetLaptops = window.laptops;
+            if (selectedCat !== 'ALL') {
+                targetLaptops = targetLaptops.filter(l => (l.category || '筆電') === selectedCat);
+            }
+
+            let devOptions = `<option value="ALL">全部設備</option>`;
+            targetLaptops.forEach(lap => {
+                const code = lap.code || lap.id;
+                devOptions += `<option value="${escapeHtml(lap.id)}">${escapeHtml(code)} (${escapeHtml(lap.category || '筆電')})</option>`;
+            });
+            devSelect.innerHTML = devOptions;
+            devSelect.value = 'ALL';
+
+            window.handleResFilterChange();
         };
 
         window.renderAdminCategoryFilterOptions = function() {
@@ -2524,14 +2583,16 @@
             const deviceVal = document.getElementById('filterResDevice')?.value || 'ALL';
             const userQuery = (document.getElementById('filterResUserName')?.value || '').trim().toLowerCase();
             const deptVal = document.getElementById('filterResDept')?.value || 'ALL';
-            const dateQuery = document.getElementById('filterResDate')?.value || '';
+            const startDateVal = document.getElementById('filterResStartDate')?.value || '';
+            const endDateVal = document.getElementById('filterResEndDate')?.value || '';
 
             let count = 0;
             if (catVal !== 'ALL') count++;
             if (deviceVal !== 'ALL') count++;
             if (userQuery) count++;
             if (deptVal !== 'ALL') count++;
-            if (dateQuery) count++;
+            if (startDateVal) count++;
+            if (endDateVal) count++;
 
             const badge = document.getElementById('advFilterActiveBadge');
             if (badge) {
@@ -2549,7 +2610,8 @@
             const deviceVal = document.getElementById('filterResDevice')?.value || 'ALL';
             const userQuery = (document.getElementById('filterResUserName')?.value || '').trim().toLowerCase();
             const deptVal = document.getElementById('filterResDept')?.value || 'ALL';
-            const dateQuery = document.getElementById('filterResDate')?.value || '';
+            const startDateVal = document.getElementById('filterResStartDate')?.value || '';
+            const endDateVal = document.getElementById('filterResEndDate')?.value || '';
             const effectiveStatus = window.currentResFilter || 'ALL';
 
             return window.reservations.filter(res => {
@@ -2581,54 +2643,52 @@
 
                 if (deptVal !== 'ALL' && res.userDept !== deptVal) return false;
 
-                if (dateQuery) {
-                    if (res.startDate && res.endDate) {
-                        if (dateQuery < res.startDate || dateQuery > res.endDate) return false;
-                    }
+                // 核心時段交集篩選邏輯 (Date Range Overlap)
+                const resStart = res.startDate || '';
+                const resEnd = res.endDate || resStart;
+
+                if (startDateVal && endDateVal) {
+                    // 情境 A：起訖皆填，查詢與此區間有重疊交集的紀錄
+                    if (resStart > endDateVal || resEnd < startDateVal) return false;
+                } else if (startDateVal) {
+                    // 情境 B：單填起始日，查詢未結束於此日之前的預約 (結束日 >= 查詢起日)
+                    if (resEnd < startDateVal) return false;
+                } else if (endDateVal) {
+                    // 情境 C：單填結束日，查詢開始於此日或此日之前的預約 (起始日 <= 查詢迄日)
+                    if (resStart > endDateVal) return false;
                 }
 
                 return true;
             });
         };
 
-        window.renderResFilterOptions = function() {
-            const catSelect = document.getElementById('filterResCategory');
-            const devSelect = document.getElementById('filterResDevice');
+        window.handleResStartDateFilterChange = function() {
+            const startInput = document.getElementById('filterResStartDate');
+            const endInput = document.getElementById('filterResEndDate');
 
-            if (catSelect) {
-                const currentCat = catSelect.value || 'ALL';
-                const categoriesSet = new Set([...window.customCategories]);
-                window.laptops.forEach(l => { if (l.category) categoriesSet.add(l.category); });
-                
-                let catHtml = `<option value="ALL">全部類別</option>`;
-                categoriesSet.forEach(c => {
-                    catHtml += `<option value="${escapeHtml(c)}" ${currentCat === c ? 'selected' : ''}>${escapeHtml(c)}</option>`;
-                });
-                catSelect.innerHTML = catHtml;
-            }
-
-            if (devSelect) {
-                const currentDev = devSelect.value || 'ALL';
-                const currentCat = catSelect ? catSelect.value : 'ALL';
-
-                let targetLaptops = window.laptops;
-                if (currentCat !== 'ALL') {
-                    targetLaptops = targetLaptops.filter(l => (l.category || '筆電') === currentCat);
+            if (startInput && endInput && startInput.value) {
+                // 自動設定結束日期的最小值 (min) 防呆
+                endInput.min = startInput.value;
+                if (endInput.value && endInput.value < startInput.value) {
+                    endInput.value = startInput.value;
                 }
-
-                let devHtml = `<option value="ALL">全部設備</option>`;
-                targetLaptops.forEach(lap => {
-                    const code = lap.code || lap.id;
-                    devHtml += `<option value="${escapeHtml(lap.id)}" ${currentDev === lap.id ? 'selected' : ''}>${escapeHtml(code)} (${escapeHtml(lap.category || '筆電')})</option>`;
-                });
-                devSelect.innerHTML = devHtml;
+            } else if (endInput) {
+                endInput.removeAttribute('min');
             }
+
+            window.handleResFilterChange();
         };
 
-        window.handleResCategoryChange = function() {
-            renderResFilterOptions();
-            const devSelect = document.getElementById('filterResDevice');
-            if (devSelect) devSelect.value = 'ALL';
+        window.handleResEndDateFilterChange = function() {
+            const startInput = document.getElementById('filterResStartDate');
+            const endInput = document.getElementById('filterResEndDate');
+
+            if (startInput && endInput && endInput.value && startInput.value) {
+                if (endInput.value < startInput.value) {
+                    startInput.value = endInput.value;
+                }
+            }
+
             window.handleResFilterChange();
         };
 
@@ -2643,13 +2703,21 @@
             const devEl = document.getElementById('filterResDevice');
             const usrEl = document.getElementById('filterResUserName');
             const deptEl = document.getElementById('filterResDept');
-            const dtEl = document.getElementById('filterResDate');
+            const dtStartEl = document.getElementById('filterResStartDate');
+            const dtEndEl = document.getElementById('filterResEndDate');
 
             if (catEl) catEl.value = 'ALL';
             if (devEl) devEl.value = 'ALL';
             if (usrEl) usrEl.value = '';
             if (deptEl) deptEl.value = 'ALL';
-            if (dtEl) dtEl.value = '';
+            if (dtStartEl) {
+                dtStartEl.value = '';
+                dtStartEl.removeAttribute('min');
+            }
+            if (dtEndEl) {
+                dtEndEl.value = '';
+                dtEndEl.removeAttribute('min');
+            }
 
             renderResFilterOptions();
             window.updateActiveAdvFilterCount();
